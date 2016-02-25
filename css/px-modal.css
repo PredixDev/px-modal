@@ -664,7 +664,7 @@ button.btn {
 :host {
   display: inline-block; }
 
-.modal {
+ {
   position: fixed;
   visibility: hidden;
   top: 0;
@@ -674,7 +674,8 @@ button.btn {
 .modal__content {
   max-width: 27.3333333333rem;
   border-radius: 3px;
-  margin-top: 12rem; }
+  margin-top: 12rem; 
+  white-space: normal; }
   @media screen and (min-width: 45em) {
     .modal__content {
       width: 27.3333333333rem; } }
