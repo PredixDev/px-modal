@@ -48,15 +48,15 @@ Custom property | Description | Default
 <dom-module id="px-modal">
   <template>
     <style include="px-modal-styles"></style>
-    
+
     <div on-tap="modalButtonClicked">
       <content select=".modal-trigger"></content>
     </div>
     <div class="modal flex flex--top flex--center full-height u-1/1" id="{{modalId}}" role="dialog" aria-labelledby$="{{modalIdTitle(modalId)}}">
       <section class="modal__content u-p+" role=region>
-        <h3 id="{{modalIdTitle(modalId)}}" class="modal__title u-mt0 epsilon weight--normal">{{modalHeading}}</h3>
+        <h3 id="{{modalIdTitle(modalId)}}" class="modal__title u-mt0 u-mb++ epsilon weight--normal">{{modalHeading}}</h3>
         <content></content>
-        <div class="modal__buttons flex flex--right">
+        <div class="modal__buttons flex flex--right u-mt+">
           <div class=flex>
             <template class="modal-toggle" is="dom-if" if="{{btnModalNegative}}">
               <button on-click="modalActionButtonClicked" id="btnModalNegative" class="btn u-mr-">{{btnModalNegative}}</button>

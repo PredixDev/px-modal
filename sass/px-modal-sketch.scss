@@ -67,6 +67,9 @@ $inuit-enable-btn--disabled     : true;
   @include media-query(palm) {
     width: 100%;
   }
+  @include media-query(lap-and-up){
+      min-width: calculateRem(400px);
+  }
 }
 
 .modal__title {
