@@ -1,3 +1,7 @@
+v1.4.1
+==================
+* Added min-width at large screen size and fixed spacing
+
 v1.4.0
 ==================
 * Updated dependencies
