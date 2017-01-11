@@ -1,3 +1,7 @@
+v1.4.2
+==================
+* changing ghp.sh to account for Alpha releases
+
 v1.4.1
 ==================
 * Added min-width at large screen size and fixed spacing
