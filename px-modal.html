@@ -9,17 +9,25 @@
 
 
 <!--
-Element providing means to open and close overlay modal with methods to capture action when modal is submitted.
+Element providing means to open and close an overlay modal dialog, with events and methods to capture when a button inside the modal is pressed.
+Both the modal trigger and the contents of the modal can be passed inside the `<px-modal>` tags.
+The trigger should have the class `modal-trigger` to ensure it doesn't appear inside of the modal itself.
+The `modalButtonClicked()` method can also be programmatically called on the modal to trigger it to open.
 
-##### Usage
+#### Usage
 
-    <px-modal modal-heading="Sign in required" btn-modal-positive="Sign In" btn-modal-negative="Cancel">
+    <px-modal modal-heading="Sign in required" btn-modal-positive="Sign In" btn-modal-negative="Back">
       <button class="btn btn--primary modal-trigger">Launch Modal</button>
       Lorem ipsum dolor sit amet.
     </px-modal>
 
+    <px-modal modal-heading="Submit form?" btn-modal-positive="Submit" btn-modal-negative="Cancel">
+      <a href="javascript:void(0)" class="modal-trigger">Launch Modal</a>
+      Lorem ipsum dolor sit amet.
+    </px-modal>
 
-### Styling
+
+#### Styling
 The following custom properties are available for styling:
 
 Custom property | Description | Default
@@ -78,7 +86,7 @@ Custom property | Description | Default
     properties: {
 
       /**
-       * Modal id string
+       * Modal id string.
        *
        * @type {String}
        */
@@ -89,7 +97,7 @@ Custom property | Description | Default
       },
 
       /**
-       * Header Text for the modal window
+       * Header text for the modal window.
        *
        * @type {String}
        */
@@ -99,7 +107,7 @@ Custom property | Description | Default
       },
 
       /**
-       * Text for button with positive action on modal
+       * Text for button with positive action on modal.
        *
        * @type {String}
        */
@@ -109,7 +117,7 @@ Custom property | Description | Default
       },
 
       /**
-       * Text for button with negative action on modal
+       * Text for button with negative action on modal.
        *
        * @type {String}
        */
@@ -162,7 +170,7 @@ Custom property | Description | Default
 
     },
     /**
-     * returns the modal title + the string '-title'
+     * Returns the modal title + the string '-title'
      *
      * @method {modalIdTitle}
      * @param {modalTitle}
@@ -172,7 +180,7 @@ Custom property | Description | Default
       return modalTitle + '-title';
     },
     /**
-     * fires a positive or negetive clicked event.
+     * Fires a positive or negative clicked event.
      *
      * @method {modalActionButtonClicked}
      * @param {evt}
@@ -188,7 +196,7 @@ Custom property | Description | Default
         this.modalButtonClicked(evt);
     },
     /**
-     * sets visibility of the modal.
+     * Sets visibility of the modal.
      *
      * @method {modalButtonClicked}
      * @param {evt}
