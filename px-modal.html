@@ -67,10 +67,10 @@ Custom property | Description | Default
         <div class="modal__buttons flex flex--right u-mt+">
           <div class=flex>
             <template class="modal-toggle" is="dom-if" if="{{btnModalNegative}}">
-              <button on-click="modalActionButtonClicked" id="btnModalNegative" class="btn u-mr-">{{btnModalNegative}}</button>
+              <button type="button" on-click="modalActionButtonClicked" id="btnModalNegative" class="btn u-mr-">{{btnModalNegative}}</button>
             </template>
             <template class="modal-toggle" is="dom-if" if="{{btnModalPositive}}">
-              <button on-click="modalActionButtonClicked" id="btnModalPositive" class="btn btn--primary" disabled$={{btnModalPositiveDisabled}}>{{btnModalPositive}}</button>
+              <button type="button" on-click="modalActionButtonClicked" id="btnModalPositive" class="btn btn--primary" disabled$={{btnModalPositiveDisabled}}>{{btnModalPositive}}</button>
             </template>
         </div>
       </section>

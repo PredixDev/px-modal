@@ -1,3 +1,7 @@
+v1.4.7
+==================
+* added button type to avoid problems in forms
+
 v1.4.6
 ==================
 * updated to px-demo
