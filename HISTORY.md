@@ -1,3 +1,7 @@
+v1.4.8
+==================
+* updated demo per design feedback
+
 v1.4.7
 ==================
 * added button type to avoid problems in forms
