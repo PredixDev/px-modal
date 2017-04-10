@@ -1,3 +1,7 @@
+v1.4.9
+==================
+* updated demo to allow users to close modal on option 1
+
 v1.4.8
 ==================
 * updated demo per design feedback

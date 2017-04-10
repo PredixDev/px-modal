@@ -44,7 +44,6 @@
               modal-heading="{{props.modalHeading.value}}"
               scrolling-disabled="{{props.scrollingDisabled.value}}">
               <button class='btn btn--primary modal-trigger'>Open Modal</button>
-              <p><b>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</b></p>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </px-modal>
         </div>
@@ -82,9 +81,9 @@
         value: function(){
           return [
             { configName: "Option 1",
-              btnModalPositive: "OK",
+              btnModalPositive: "",
               btnModalNegative: "Cancel",
-              modalHeading: "Magna Adipiscing",
+              modalHeading: "",
               btnModalPositiveDisabled: false,
               scrollingDisabled: false },
 
@@ -108,7 +107,7 @@
 
       btnModalNegative: {
         type: String,
-        defaultValue: '',
+        defaultValue: 'Cancel',
         inputType: 'text'
       },
 
@@ -126,13 +125,13 @@
 
       scrollingDisabled: {
         type: Boolean,
-        defaultValue: true,
+        defaultValue: false,
         inputType: 'toggle'
       },
 
       lightDomContent: {
         type: String,
-        defaultValue: "<button class='btn btn--primary modal-trigger'>Open Modal</button><p><b>Magna Adipiscing</b></p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+        defaultValue: "<button class='btn btn--primary modal-trigger'>Open Modal</button><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
       }
 
     }
