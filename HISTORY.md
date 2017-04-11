@@ -1,3 +1,7 @@
+v1.4.10
+==================
+* removed word-break as it was causing strange behavior
+
 v1.4.9
 ==================
 * updated demo to allow users to close modal on option 1

@@ -62,7 +62,6 @@ $inuit-enable-btn--disabled     : true;
   border-radius: 3px;
   white-space: normal;
   word-wrap: break-word;
-  word-break: break-word;
   @apply(--px-modal-content);
   @include media-query(palm) {
     width: 100%;
