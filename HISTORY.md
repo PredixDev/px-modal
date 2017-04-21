@@ -1,3 +1,7 @@
+v2.0.0-prerelease
+==================
+* component redesign
+
 v1.4.10
 ==================
 * removed word-break as it was causing strange behavior

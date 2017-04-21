@@ -8,18 +8,6 @@
  * under which the software has been supplied.
  */
 
-//
-// Sass for the "sketch" notion of the px-modal component
-//
-// @author
-//
-
-/*
-THIS FILE SHOULD CONTAIN ONLY ABSTRACT/'SKETCH' THEME RULES, NOT SPECIFIC TO PREDIX BRANDING
-Predix branding rules go in px-modal-predix.scss, not in this file.
-*/
-
-
 // Generic
 @import "px-normalize-design/_generic.normalize.scss";
 @import "px-box-sizing-design/_generic.box-sizing.scss";
@@ -30,8 +18,8 @@ Predix branding rules go in px-modal-predix.scss, not in this file.
 @import "px-headings-design/_base.headings.scss";
 
 // Objects
-$inuit-enable-btn--primary      : true;
-$inuit-enable-btn--disabled     : true;
+$inuit-enable-btn--call-to-action  : true;
+$inuit-enable-btn--disabled        : true;
 
 @import "px-buttons-design/_objects.buttons.scss";
 
@@ -48,7 +36,14 @@ $inuit-enable-btn--disabled     : true;
   bottom: 0;
   left: 0;
   z-index: 999;
+  background-color: var(--px-modal-overlay-color, rgba($black, .7));
   @apply(--px-modal);
+}
+
+.modal__title {
+  margin-bottom: $inuit-base-spacing-unit--large;
+  margin-top: 0;
+  @apply(--px-modal-title);
 }
 
 .modal__content {
@@ -59,30 +54,30 @@ $inuit-enable-btn--disabled     : true;
   max-height: calc(100% - 2rem);
   max-width: calc(100% - 2rem);
   overflow: auto;
-  border-radius: 3px;
   white-space: normal;
   word-wrap: break-word;
+  background-color: var(--px-modal-background-color, $white);
+  padding: $inuit-base-spacing-unit--large;
   @apply(--px-modal-content);
   @include media-query(palm) {
     width: 100%;
   }
   @include media-query(lap-and-up){
-      min-width: calculateRem(400px);
+    min-width: calculateRem(400px);
   }
 }
 
-.modal__title {
-  @apply(--px-modal-title);
-}
-
 .modal__buttons {
-  margin: $inuit-base-spacing-unit--large -#{$inuit-base-spacing-unit--large} 0;
-  padding: $inuit-base-spacing-unit--large $inuit-base-spacing-unit--large 0;
+  margin-top: $inuit-base-spacing-unit--large;
+  border-top: 1px solid var(--px-modal-border-color, transparent);
 }
 .modal__buttons button.btn {
+  &:nth-last-of-type(2) {
+    margin-right: $inuit-base-spacing-unit--small;
+  }
   @apply(--px-modal-buttons);
 }
-.modal__buttons button.btn--primary {
+.modal__buttons button.btn--call-to-action {
   @apply(--px-modal-positive-button);
 }
 
