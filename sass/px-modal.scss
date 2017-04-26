@@ -25,6 +25,7 @@ $inuit-enable-btn--disabled        : true;
 
 :host {
   display: inline-block;
+  --px-btn-disabled-color: var(--px-modal-btn--disabled, gray);
 }
 
 // Components
@@ -36,7 +37,7 @@ $inuit-enable-btn--disabled        : true;
   bottom: 0;
   left: 0;
   z-index: 999;
-  background-color: var(--px-modal-overlay-color, rgba($black, .7));
+  background-color: var(--px-modal-overlay-color, rgba(black, .7));
   @apply(--px-modal);
 }
 
@@ -56,7 +57,9 @@ $inuit-enable-btn--disabled        : true;
   overflow: auto;
   white-space: normal;
   word-wrap: break-word;
-  background-color: var(--px-modal-background-color, $white);
+  background-color: var(--px-modal-background-color, white);
+  color: var(--px-modal-text-color, black);
+  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.20);
   padding: $inuit-base-spacing-unit--large;
   @apply(--px-modal-content);
   @include media-query(palm) {

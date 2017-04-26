@@ -72,7 +72,7 @@ Custom property | Description
               <button type="button" on-click="modalActionButtonClicked" id="btnModalNegative" class="btn">{{btnModalNegative}}</button>
             </template>
             <template class="modal-toggle" is="dom-if" if="{{btnModalPositive}}" restamp>
-              <button type="button" on-click="modalActionButtonClicked" id="btnModalPositive" class="btn btn--call-to-action" disabled$={{btnModalPositiveDisabled}}>{{btnModalPositive}}</button>
+              <button type="button" on-click="modalActionButtonClicked" id="btnModalPositive" class$="btn {{_getClass(btnModalPositiveDisabled)}}">{{btnModalPositive}}</button>
             </template>
         </div>
       </section>
@@ -138,13 +138,6 @@ Custom property | Description
         type: Boolean,
         value: false,
         reflectToAttribute: true
-      },
-      /**
-       * Flag to indicate if scrolling of the main application should be disabled while the modal is open.
-       */
-      scrollingDisabled: {
-        type: Boolean,
-        value: true
       }
 
     },
@@ -174,10 +167,15 @@ Custom property | Description
     modalButtonClicked: function(evt){
       var modalEle = this.$$("#" + this.modalId);
       modalEle.style.visibility = (modalEle.style.visibility === "visible") ? "hidden" : "visible";
-      if(this.scrollingDisabled) {
-        document.body.style.overflow = (document.body.style.overflow === "hidden") ? "auto" : "hidden";
-        document.documentElement.style.overflow = (document.documentElement.style.overflow === "hidden") ? "auto" : "hidden";
-      }
+      document.body.style.overflow = (document.body.style.overflow === "hidden") ? "auto" : "hidden";
+      document.documentElement.style.overflow = (document.documentElement.style.overflow === "hidden") ? "auto" : "hidden";
+    },
+    /**
+     * Gets the disabled class for the positive action button.
+     *
+     */
+    _getClass: function(){
+      return this.btnModalPositiveDisabled ? "btn--disabled" : "btn--call-to-action";
     }
   });
 </script>
