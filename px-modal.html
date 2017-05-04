@@ -1,4 +1,3 @@
-
 <!--
     Relative paths assume component is being run from inside an app or another component, where dependencies are flat
     siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
@@ -125,12 +124,29 @@ Custom property | Description
       },
 
       /**
+       * Data for the event that will be raised when the positive modal button is clicked.
+       */
+      btnModalPositiveClickedEventData: {
+        type: Object,
+        value: {}
+      },
+
+      /**
        * Name of the event that will be raised when the negative modal button is clicked.
        */
       btnModalNegativeClickedEventName: {
         type: String,
         value: "btnModalNegativeClicked"
       },
+
+      /**
+       * Data of the event that will be raised when the negative modal button is clicked.
+       */
+      btnModalNegativeClickedEventData: {
+        type: Object,
+        value: {}
+      },
+
       /**
        * Flag to indicate if the positive button should be disabled within the modal.
        */
@@ -153,10 +169,10 @@ Custom property | Description
      */
     modalActionButtonClicked: function(evt){
         if (evt.target.id === 'btnModalPositive'){
-          this.fire(this.btnModalPositiveClickedEventName);
+          this.fire(this.btnModalPositiveClickedEventName, this.btnModalPositiveClickedEventData);
         }
         else{
-          this.fire(this.btnModalNegativeClickedEventName);
+          this.fire(this.btnModalNegativeClickedEventName, this.btnModalNegativeClickedEventData);
         }
         this.modalButtonClicked(evt);
     },
