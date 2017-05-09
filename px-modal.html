@@ -60,7 +60,7 @@ Custom property | Description
     <div on-tap="modalButtonClicked">
       <content select=".modal-trigger"></content>
     </div>
-    <div class="modal flex flex--top flex--center full-height" id="{{modalId}}" role="dialog" aria-labelledby$="{{modalIdTitle(modalId)}}">
+    <div class="modal flex flex--top flex--center full-height invisible" id="{{modalId}}" role="dialog" aria-labelledby$="{{modalIdTitle(modalId)}}">
       <section class="modal__content" role=region>
         <template is="dom-if" if="{{modalHeading}}">
           <h3 id="{{modalIdTitle(modalId)}}" class="modal__title epsilon weight--normal">{{modalHeading}}</h3>
@@ -166,7 +166,8 @@ Custom property | Description
      */
     modalButtonClicked: function(evt){
       var modalEle = this.$$("#" + this.modalId);
-      modalEle.style.visibility = (modalEle.style.visibility === "visible") ? "hidden" : "visible";
+      this.toggleClass('fadeout', !modalEle.classList.contains('invisible'), modalEle);
+      this.toggleClass('invisible', !modalEle.classList.contains('invisible'), modalEle);
       document.body.style.overflow = (document.body.style.overflow === "hidden") ? "auto" : "hidden";
       document.documentElement.style.overflow = (document.documentElement.style.overflow === "hidden") ? "auto" : "hidden";
     },
