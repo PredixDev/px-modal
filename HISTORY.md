@@ -1,4 +1,4 @@
-v2.0.0-prerelease
+v2.0.0
 ==================
 * component redesign
 
