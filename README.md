@@ -1,11 +1,8 @@
 # px-modal [![Build Status](https://travis-ci.org/PredixDev/px-modal.svg?branch=master)](https://travis-ci.org/PredixDev/px-modal)
 
-[![px-modal demo](px-modal.png?raw=true)](https://github.com/PredixDev/px-modal)
-
 ## Overview
 
-px-modal is a Predix UI component that opens a modal window and overlays over the page.
-
+Px-modal is a Predix UI component that opens a modal window and overlays over the page.
 
 ## Usage
 
@@ -109,7 +106,7 @@ Click on the link to open its modal, click OK to go to www.ge.com:
 </script>
 ```
 
-## documentation
+## Documentation
 
 Read the full API and view the demo [here](https://predixdev.github.io/px-modal).
 
