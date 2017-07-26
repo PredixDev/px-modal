@@ -2,7 +2,7 @@
 
 ## Overview
 
-Px-modal is a Predix UI component that opens a modal window and overlays over the page.
+`Px-modal` is a Predix UI component which opens a modal window that overlays the page.
 
 ## Usage
 
@@ -12,17 +12,17 @@ Px-modal is a Predix UI component that opens a modal window and overlays over th
 3. bower
 4. [webcomponents-lite.js polyfill](https://github.com/webcomponents/webcomponentsjs)
 
-Node, npm and bower are necessary to install the component and dependencies. webcomponents.js adds support for web components and custom elements to your application.
+Node, npm, and bower are necessary to install the component and dependencies. webcomponents.js adds support for web components and custom elements to your application.
 
 ### Getting Started
 
-First, install the component via bower on the command line.
+First, install the component via bower on the command line:
 
 ```
 bower install https://github.com/PredixDev/px-modal.git --save
 ```
 
-Second, import the component to your application with the following tag in your head.
+Second, import the component to your application with the following tag in your head:
 
 ```
 <link rel="import" href="/bower_components/px-modal/px-modal.html"/>
@@ -30,7 +30,7 @@ Second, import the component to your application with the following tag in your 
 
 Finally, use the component in your application:
 
-### Examples
+#### Examples
 
 Modal triggered by button click
 ```
