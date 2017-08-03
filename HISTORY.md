@@ -1,3 +1,7 @@
+v2.0.1
+==================
+* remove old icon reference in demo
+
 v2.0.0
 ==================
 * component redesign
