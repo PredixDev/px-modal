@@ -1,12 +1,5 @@
-
-<!--
-    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
-    siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
-    'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
-    See https://github.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
--->
 <link rel="import" href="../polymer/polymer.html"/>
-
+<link rel="import" href="css/px-modal-styles.html"/>
 
 <!--
 Element providing means to open and close an overlay modal dialog, with events and methods to capture when a button inside the modal is pressed.
@@ -28,6 +21,7 @@ The `modalButtonClicked()` method can also be programmatically called on the mod
 
 
 ### Styling
+
 The following custom properties are available for styling:
 
 Custom property | Description
@@ -49,10 +43,8 @@ Custom property | Description
 @element px-modal
 @blurb Element providing means to open and close overlay modal with methods to capture action when modal is submitted.
 @homepage index.html
-@demo demo.html
+@demo index.html
 -->
-<link rel="import" href="css/px-modal-styles.html"/>
-
 <dom-module id="px-modal">
   <template>
     <style include="px-modal-styles"></style>
