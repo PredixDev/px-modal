@@ -1,3 +1,7 @@
+v2.0.4
+==================
+* fix dependencies and recompile sass
+
 v2.0.3
 ==================
 * Fix comment for analyzer

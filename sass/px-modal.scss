@@ -103,11 +103,3 @@ $inuit-enable-btn--disabled        : true;
 .modal__buttons button.btn--call-to-action {
   @apply(--px-modal-positive-button);
 }
-
-// Trumps
-$inuit-enable-margins--none     : true;
-$inuit-enable-margins--small    : true;
-$inuit-enable-paddings--large   : true;
-
-@import "px-spacing-design/_trumps.spacing.scss";
-@import "px-widths-design/_trumps.widths.scss";
