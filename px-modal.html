@@ -53,7 +53,7 @@ Custom property | Description
       <content select=".modal-trigger"></content>
     </div>
     <div class="modal flex flex--top flex--center full-height invisible" id="{{modalId}}" role="dialog" aria-labelledby$="{{modalIdTitle(modalId)}}">
-      <section class="modal__content" role=region>
+      <section class="modal__content" style$="width:{{modalWidth}}" role=region>
         <template is="dom-if" if="{{modalHeading}}">
           <h3 id="{{modalIdTitle(modalId)}}" class="modal__title epsilon weight--normal">{{modalHeading}}</h3>
         </template>
@@ -85,6 +85,13 @@ Custom property | Description
       modalId: {
         type: String,
         value: 'myModal'
+      },
+
+      /**
+       * Width of the modal window.
+       */
+      modalWidth: {
+        type: String
       },
 
       /**
