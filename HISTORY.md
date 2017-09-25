@@ -1,3 +1,7 @@
+v2.0.5
+==================
+* temp fix for css @apply bug
+
 v2.0.4
 ==================
 * fix dependencies and recompile sass
