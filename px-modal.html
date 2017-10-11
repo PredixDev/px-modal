@@ -162,6 +162,10 @@ Custom property | Description
       this.toggleClass('invisible', !modalEle.classList.contains('invisible'), modalEle);
       document.body.style.overflow = (document.body.style.overflow === "hidden") ? "auto" : "hidden";
       document.documentElement.style.overflow = (document.documentElement.style.overflow === "hidden") ? "auto" : "hidden";
+      // clean up by removing fadeout class so it doesn't show up again accidentally
+      window.setTimeout(function() {
+        this.toggleClass('fadeout', false, modalEle);
+      }.bind(this),300);
     },
     /**
      * Gets the disabled class for the positive action button.

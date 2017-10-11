@@ -1,3 +1,7 @@
+v2.0.6
+==================
+* fix #21, prevent modal from reappearing
+
 v2.0.5
 ==================
 * temp fix for css @apply bug
