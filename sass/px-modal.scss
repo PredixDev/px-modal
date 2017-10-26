@@ -42,6 +42,9 @@ $inuit-enable-btn--disabled        : true;
   &.invisible {
     visibility: hidden;
     background-color: transparent;
+    .modal__content {
+      display: none;
+    }
   }
   &.fadeout {
     animation: fadeout 0.3s cubic-bezier(.78,.13,.16,.87);

@@ -57,7 +57,7 @@ Custom property | Description
         <template is="dom-if" if="{{modalHeading}}">
           <h3 id="{{modalIdTitle(modalId)}}" class="modal__title epsilon weight--normal">{{modalHeading}}</h3>
         </template>
-        <content></content>
+        <slot></slot>
         <div class="modal__buttons flex flex--right">
           <div class=flex>
             <template class="modal-toggle" is="dom-if" if="{{btnModalNegative}}" restamp>

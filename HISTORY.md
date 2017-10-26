@@ -1,3 +1,7 @@
+v2.0.7
+==================
+* fix #17, switch content to slot
+
 v2.0.6
 ==================
 * fix #21, prevent modal from reappearing
