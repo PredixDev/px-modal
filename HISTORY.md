@@ -1,3 +1,7 @@
+v2.0.8
+==================
+* add device flags
+
 v2.0.7
 ==================
 * fix #17, switch content to slot
