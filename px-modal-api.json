@@ -1,0 +1,388 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "Element providing means to open and close an overlay modal dialog, with events and methods to capture when a button inside the modal is pressed.\nBoth the modal trigger and the contents of the modal can be passed inside the `<px-modal>` tags.\nThe trigger should have the class `modal-trigger` to ensure it doesn't appear inside of the modal itself.\nThe `modalButtonClicked()` method can also be programmatically called on the modal to trigger it to open.\n\n### Usage\n\n    <px-modal modal-heading=\"Sign in required\" btn-modal-positive=\"Sign In\" btn-modal-negative=\"Back\">\n      <button class=\"btn btn--primary modal-trigger\">Launch Modal</button>\n      Lorem ipsum dolor sit amet.\n    </px-modal>\n\n    <px-modal modal-heading=\"Submit form?\" btn-modal-positive=\"Submit\" btn-modal-negative=\"Cancel\">\n      <a href=\"javascript:void(0)\" class=\"modal-trigger\">Launch Modal</a>\n      Lorem ipsum dolor sit amet.\n    </px-modal>\n\n\n### Styling\n\nThe following custom properties are available for styling:\n\nCustom property | Description\n:------------|:-------------\n`--px-modal-background-color`   | Background color of the modal dialog\n`--px-modal-overlay-color`   | Base color for the semi-opaque overlay\n`--px-modal-border-color`   | Color used for the separator line in the modal dialog\n\nIn addition, the following mixins can be used to completely override the style of the modal component.\n\nCustom property | Description\n:------------|:-------------\n`--px-modal`   | Style mixin to be applied to the modal overlay (background layer)\n`--px-modal-content`   | Style mixin to be applied to the modal content box\n`--px-modal-title`   | Style mixin to be applied to the title of the modal content box\n`--px-modal-buttons`   | Style mixin to be applied to all of the buttons at the bottom of the overlay\n`--px-modal-positive-button`   | Style mixin to be applied specifically to the positive action button of the overlay",
+      "summary": "",
+      "path": "px-modal.html",
+      "properties": [
+        {
+          "name": "modalId",
+          "type": "string",
+          "description": "Modal id string.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 84,
+              "column": 6
+            },
+            "end": {
+              "line": 87,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"myModal\""
+        },
+        {
+          "name": "modalHeading",
+          "type": "string",
+          "description": "Header text for the modal window.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 92,
+              "column": 6
+            },
+            "end": {
+              "line": 94,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "btnModalPositive",
+          "type": "string",
+          "description": "Text for button with positive action on modal.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 99,
+              "column": 6
+            },
+            "end": {
+              "line": 101,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "btnModalNegative",
+          "type": "string",
+          "description": "Text for button with negative action on modal.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 106,
+              "column": 6
+            },
+            "end": {
+              "line": 108,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "btnModalPositiveClickedEventName",
+          "type": "string",
+          "description": "Name of the event that will be raised when the positive modal button is clicked.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 113,
+              "column": 6
+            },
+            "end": {
+              "line": 116,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"btnModalPositiveClicked\""
+        },
+        {
+          "name": "btnModalNegativeClickedEventName",
+          "type": "string",
+          "description": "Name of the event that will be raised when the negative modal button is clicked.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 121,
+              "column": 6
+            },
+            "end": {
+              "line": 124,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"btnModalNegativeClicked\""
+        },
+        {
+          "name": "btnModalPositiveDisabled",
+          "type": "boolean",
+          "description": "Flag to indicate if the positive button should be disabled within the modal.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 128,
+              "column": 6
+            },
+            "end": {
+              "line": 132,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        }
+      ],
+      "methods": [
+        {
+          "name": "modalIdTitle",
+          "description": "Returns the modal title + the string '-title'",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 138,
+              "column": 4
+            },
+            "end": {
+              "line": 140,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "modalTitle"
+            }
+          ]
+        },
+        {
+          "name": "modalActionButtonClicked",
+          "description": "Fires a positive or negative clicked event.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 145,
+              "column": 4
+            },
+            "end": {
+              "line": 153,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "modalButtonClicked",
+          "description": "Sets visibility of the modal.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 158,
+              "column": 4
+            },
+            "end": {
+              "line": 168,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_getClass",
+          "description": "Gets the disabled class for the positive action button.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 173,
+              "column": 4
+            },
+            "end": {
+              "line": 175,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 75,
+          "column": 10
+        },
+        "end": {
+          "line": 176,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "modal-id",
+          "description": "Modal id string.",
+          "sourceRange": {
+            "start": {
+              "line": 84,
+              "column": 6
+            },
+            "end": {
+              "line": 87,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "modal-heading",
+          "description": "Header text for the modal window.",
+          "sourceRange": {
+            "start": {
+              "line": 92,
+              "column": 6
+            },
+            "end": {
+              "line": 94,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "btn-modal-positive",
+          "description": "Text for button with positive action on modal.",
+          "sourceRange": {
+            "start": {
+              "line": 99,
+              "column": 6
+            },
+            "end": {
+              "line": 101,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "btn-modal-negative",
+          "description": "Text for button with negative action on modal.",
+          "sourceRange": {
+            "start": {
+              "line": 106,
+              "column": 6
+            },
+            "end": {
+              "line": 108,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "btn-modal-positive-clicked-event-name",
+          "description": "Name of the event that will be raised when the positive modal button is clicked.",
+          "sourceRange": {
+            "start": {
+              "line": 113,
+              "column": 6
+            },
+            "end": {
+              "line": 116,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "btn-modal-negative-clicked-event-name",
+          "description": "Name of the event that will be raised when the negative modal button is clicked.",
+          "sourceRange": {
+            "start": {
+              "line": 121,
+              "column": 6
+            },
+            "end": {
+              "line": 124,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "btn-modal-positive-disabled",
+          "description": "Flag to indicate if the positive button should be disabled within the modal.",
+          "sourceRange": {
+            "start": {
+              "line": 128,
+              "column": 6
+            },
+            "end": {
+              "line": 132,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [
+        {
+          "description": "",
+          "name": "",
+          "range": {
+            "file": "px-modal.html",
+            "start": {
+              "line": 59,
+              "column": 8
+            },
+            "end": {
+              "line": 59,
+              "column": 21
+            }
+          }
+        }
+      ],
+      "tagname": "px-modal"
+    }
+  ]
+}
