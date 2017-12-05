@@ -59,18 +59,18 @@ describe('px-modal', () => {
     expect(modal.opened).to.be.false;
   });
 
-  it('fires the `px-modal-reject-trigger-tapped` event when the reject trigger is tapped', () => {
+  it('fires the `px-modal-rejected` event when the reject trigger is tapped', () => {
     const eventCallback = sinon.spy();
-    modal.addEventListener('px-modal-reject-trigger-tapped', eventCallback);
+    modal.addEventListener('px-modal-rejected', eventCallback);
     modal.opened = true;
     const rejectTriggerButton = Polymer.dom(modal.root).querySelector('#reject-trigger-button');
     rejectTriggerButton.click();
     expect(eventCallback).to.be.calledOnce;
   });
 
-  it('fires the `px-modal-accept-trigger-tapped` event when the accept trigger is tapped', () => {
+  it('fires the `px-modal-accepted` event when the accept trigger is tapped', () => {
     const eventCallback = sinon.spy();
-    modal.addEventListener('px-modal-accept-trigger-tapped', eventCallback);
+    modal.addEventListener('px-modal-accepted', eventCallback);
     modal.opened = true;
     const acceptTriggerButton = Polymer.dom(modal.root).querySelector('#accept-trigger-button');
     acceptTriggerButton.click();
@@ -110,18 +110,18 @@ describe('px-modal [slots]', () => {
     expect(modal.opened).to.be.false;
   });
 
-  it('fires the `px-modal-reject-trigger-tapped` event when the slotted reject trigger is tapped', () => {
+  it('fires the `px-modal-rejected` event when the slotted reject trigger is tapped', () => {
     const eventCallback = sinon.spy();
-    modal.addEventListener('px-modal-reject-trigger-tapped', eventCallback);
+    modal.addEventListener('px-modal-rejected', eventCallback);
     modal.opened = true;
     const slottedRejectButton = fx.querySelector('#rejectButton');
     slottedRejectButton.click();
     expect(eventCallback).to.be.calledOnce;
   });
 
-  it('fires the `px-modal-accept-trigger-tapped` event when the slotted accept trigger is tapped', () => {
+  it('fires the `px-modal-accepted` event when the slotted accept trigger is tapped', () => {
     const eventCallback = sinon.spy();
-    modal.addEventListener('px-modal-accept-trigger-tapped', eventCallback);
+    modal.addEventListener('px-modal-accepted', eventCallback);
     modal.opened = true;
     const slottedAcceptButton = fx.querySelector('#acceptButton');
     slottedAcceptButton.click();

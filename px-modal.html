@@ -56,7 +56,7 @@ The user can accept or reject a modal prompt. Apps may want to respond different
 depending on what the user selects. For example, if the user accepts a delete
 confirmation modal the app should delete the record, and if the user rejects the
 modal the apps should cancel the deletion. Listen for the
-`px-modal-reject-trigger-tapped` and `px-modal-accept-trigger-tapped` events
+`px-modal-rejected` and `px-modal-accepted` events
 to respond to user actions:
 
     <px-modal
@@ -69,10 +69,10 @@ to respond to user actions:
     </px-modal>
     <script>
       var modal = document.getElementByID('confirmModal');
-      modal.addEventListener('px-modal-reject-trigger-tapped', function(e) {
+      modal.addEventListener('px-modal-rejected', function(e) {
         // ... handle reject action here ...
       });
-      modal.addEventListener('px-modal-accept-trigger-tapped', function(e) {
+      modal.addEventListener('px-modal-accepted', function(e) {
         // ... handle accept action here ...
       });
     </script>
@@ -282,20 +282,20 @@ Custom property | Description
 
       _handleRejectTriggerTapped() {
         this.opened = false;
-        this.fire('px-modal-reject-trigger-tapped');
+        this.fire('px-modal-rejected');
       },
       /**
        * Fired when the reject trigger is tapped (after the modal is closed).
-       * @event px-modal-reject-trigger-tapped
+       * @event px-modal-rejected
        */
 
       _handleAcceptTriggerTapped() {
         this.opened = false;
-        this.fire('px-modal-accept-trigger-tapped');
+        this.fire('px-modal-accepted');
       }
       /**
        * Fired when the accept trigger is tapped (after the modal is closed).
-       * @event px-modal-accept-trigger-tapped
+       * @event px-modal-accepted
        */
     });
   })();
