@@ -243,11 +243,27 @@ Custom property | Description
        * focus on tab. Closes the modal when the user hits escape.
        */
       _handleModalKeypress(evt) {
-        if (evt.key === 'Tab') {
+        if (evt.key === 'Tab' && !evt.shiftKey) {
+          /*
+           * When the user tabs forward past the last focusable element,
+           * focus the first focusable element
+           */
           let lastFocusedElement = Polymer.dom(evt).rootTarget;
           if (lastFocusedElement && this._firstFocusableElement && lastFocusedElement === this._lastFocusableElement) {
             evt.preventDefault();
             this._firstFocusableElement.focus();
+          }
+        }
+        if (evt.key === 'Tab' && evt.shiftKey) {
+          console.log('ye')
+          /*
+           * When the user tabs backward past the first focusable element,
+           * focus the last focusable element
+           */
+          let lastFocusedElement = Polymer.dom(evt).rootTarget;
+          if (lastFocusedElement && this._lastFocusableElement && lastFocusedElement === this._firstFocusableElement) {
+            evt.preventDefault();
+            this._lastFocusableElement.focus();
           }
         }
         if (evt.key === 'Escape') {
