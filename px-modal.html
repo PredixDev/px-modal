@@ -231,7 +231,7 @@ Custom property | Description
         }
         const shadowAcceptTrigger = Polymer.dom(this.root).querySelector('#accept-trigger-button');
         const shadowRejectTrigger = Polymer.dom(this.root).querySelector('#reject-trigger-button');
-                  const slottedAcceptTrigger = focusableSlottedElements.find(n => n.getAttribute('slot') === 'accept-trigger');
+        const slottedAcceptTrigger = focusableSlottedElements.find(n => n.getAttribute('slot') === 'accept-trigger');
         const slottedRejectTrigger = focusableSlottedElements.find(n => n.getAttribute('slot') === 'reject-trigger');
         return focusableSlottedElements
           .filter(n => n !== slottedAcceptTrigger && n !== slottedRejectTrigger)
