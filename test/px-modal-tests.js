@@ -42,7 +42,7 @@ describe('px-modal', () => {
     modal.opened = true;
 
     expect(() => window.getComputedStyle(modalOverlay).visibility)
-      .to.eventuallyEqual('visible', {within: 1000, every: 100}, done);
+      .to.eventuallyEqual('visible', {within: 3000, every: 100}, done);
   });
 
   it('hides the modal when the reject trigger is tapped', () => {
