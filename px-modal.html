@@ -187,6 +187,14 @@ Custom property | Description
 
       created() {
         this._modalKeypressFn = this._handleModalKeypress.bind(this);
+        this._openTriggerTappedFn = () => {
+          this.opened = true
+        };
+        this._openTriggerKeydownFn = (evt) => {
+          if (evt.key === 'Enter') {
+            this.opened = true;
+          }
+        };
       },
 
       _handleOpenedChanged(opened) {
@@ -262,13 +270,13 @@ Custom property | Description
       },
 
       _handleOpenTriggerUpdated(newTrigger, oldTrigger) {
-        if (oldTrigger && this._openTriggerFn) {
-          oldTrigger.removeEventListener('click', this._openTriggerFn);
-          this._openTriggerFn = null;
+        if (oldTrigger) {
+          oldTrigger.removeEventListener('click', this._openTriggerTappedFn);
+          oldTrigger.removeEventListener('keydown', this._openTriggerKeydownFn);
         }
         if (newTrigger) {
-          this._openTriggerFn = () => { this.opened = true };
-          newTrigger.addEventListener('click', this._openTriggerFn, false);
+          newTrigger.addEventListener('click', this._openTriggerTappedFn, false);
+          newTrigger.addEventListener('keydown', this._openTriggerKeydownFn, false);
         }
       },
 
