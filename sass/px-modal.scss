@@ -14,13 +14,13 @@
 @import "px-helpers-design/_generic.helpers.scss";
 
 // Base
-@import "px-flexbox-design/_base.flexbox.scss";
 @import "px-headings-design/_base.headings.scss";
 
 // Objects
 $inuit-enable-btn--call-to-action  : true;
 $inuit-enable-btn--disabled        : true;
 @import "px-buttons-design/_objects.buttons.scss";
+@import "px-shadows-design/_objects.shadows.scss";
 
 // Components
 .modal {
@@ -55,7 +55,6 @@ $inuit-enable-btn--disabled        : true;
   word-wrap: break-word;
   background-color: var(--px-modal-background-color, white);
   color: var(--px-modal-text-color, black);
-  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.20);
   padding: $inuit-base-spacing-unit--large;
   @include media-query(palm) {
     width: 100%;
@@ -73,7 +72,6 @@ $inuit-enable-btn--disabled        : true;
 
 .modal__body {}
 .modal__body__text {
-  margin-top: 0;
   margin-top: $inuit-base-spacing-unit--large;
   margin-bottom: $inuit-base-spacing-unit--large;
 }

@@ -29,11 +29,11 @@
     "px-normalize-design": "^1.0.2",
     "px-box-sizing-design": "^1.0.2",
     "px-helpers-design": "^1.0.7",
-    "px-flexbox-design": "^1.0.2",
     "px-buttons-design": "^2.0.5",
     "px-headings-design": "^1.0.3",
     "web-component-tester": "^6.4.0",
-    "iron-test-helpers": "^2.0.0"
+    "iron-test-helpers": "^2.0.0",
+    "px-shadows-design": "^1.0.2"
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.24"

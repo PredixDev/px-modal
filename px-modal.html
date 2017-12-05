@@ -97,7 +97,7 @@ Custom property | Description
     <style include="px-modal-styles"></style>
 
     <div class="modal" id="modal" on-transitionend="_handleTransitionEnd">
-      <div class="modal__box">
+      <div class="modal__box shadow-modal">
         <!-- Header -->
         <div class="modal__header">
           <slot name="header">
@@ -119,7 +119,7 @@ Custom property | Description
             </slot>
           </div>
           <!-- Actions: Accept -->
-          <div class="modal__triggers__accept" on-click="_handleAcceptTriggerTapped">
+          <div on-click="_handleAcceptTriggerTapped">
             <slot name="accept-trigger">
               <button type="button" class="btn btn--call-to-action" id="accept-trigger-button">[[acceptText]]</button>
             </slot>
