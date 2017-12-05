@@ -20,13 +20,7 @@
 // Objects
 $inuit-enable-btn--call-to-action  : true;
 $inuit-enable-btn--disabled        : true;
-
 @import "px-buttons-design/_objects.buttons.scss";
-
-:host {
-  display: inline-block;
-  --px-btn-disabled-color: var(--px-modal-btn--disabled, gray);
-}
 
 // Components
 .modal {
@@ -36,41 +30,20 @@ $inuit-enable-btn--disabled        : true;
   bottom: 0;
   left: 0;
   z-index: 999;
+  visibility: hidden;
+  background-color: transparent;
+  opacity: 0;
+  transition: background-color 0.3s cubic-bezier(.78,.13,.16,.87),
+              visibility 0.3s cubic-bezier(.78,.13,.16,.87),
+              opacity 0.3s cubic-bezier(.78,.13,.16,.87);
+}
+:host([opened]) > .modal {
+  visibility: visible;
   background-color: var(--px-modal-overlay-color, rgba(black, 0.65));
-  transition: background-color 0.3s cubic-bezier(.78,.13,.16,.87);
-  @apply --px-modal;
-  &.invisible {
-    visibility: hidden;
-    background-color: transparent;
-    .modal__content {
-      display: none;
-    }
-  }
-  &.fadeout {
-    animation: fadeout 0.3s cubic-bezier(.78,.13,.16,.87);
-  }
+  opacity: 1;
 }
 
-@keyframes fadeout {
-  from {
-    opacity: 1;
-    background-color: var(--px-modal-overlay-color, rgba(black, 0.65));
-    visibility: visible;
-  }
-  to {
-    opacity: 0;
-    background-color: transparent;
-    visibility: hidden;
-  }
-}
-
-.modal__title {
-  margin-bottom: $inuit-base-spacing-unit--large;
-  margin-top: 0;
-  @apply --px-modal-title;
-}
-
-.modal__content {
+.modal__box {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -84,7 +57,6 @@ $inuit-enable-btn--disabled        : true;
   color: var(--px-modal-text-color, black);
   box-shadow: 0 6px 12px 0 rgba(0,0,0,0.20);
   padding: $inuit-base-spacing-unit--large;
-  @apply --px-modal-content;
   @include media-query(palm) {
     width: 100%;
   }
@@ -93,16 +65,23 @@ $inuit-enable-btn--disabled        : true;
   }
 }
 
-.modal__buttons {
+.modal__header {}
+.modal__header__text {
+  margin-top: 0;
+  margin-bottom: $inuit-base-spacing-unit--large;
+}
+
+.modal__body {}
+.modal__body__text {
+  margin-top: 0;
   margin-top: $inuit-base-spacing-unit--large;
-  border-top: 1px solid var(--px-modal-border-color, transparent);
+  margin-bottom: $inuit-base-spacing-unit--large;
 }
-.modal__buttons button.btn {
-  &:nth-last-of-type(2) {
-    margin-right: $inuit-base-spacing-unit--small;
-  }
-  @apply --px-modal-buttons;
+
+.modal__triggers {
+  display: flex;
+  justify-content: flex-end;
 }
-.modal__buttons button.btn--call-to-action {
-  @apply --px-modal-positive-button;
+.modal__triggers__reject {
+  margin-right: $inuit-base-spacing-unit--small;
 }
