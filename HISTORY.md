@@ -1,3 +1,96 @@
+v3.0.0
+==================
+Upgrades `<px-modal>` element and its related styles to support Polymer 1 and 2.
+Refactors to simplify API and make the modal easier to implement in apps.
+
+There are many major breaking changes in this release, please see below for more
+information and an upgrade guide:
+
+## Breaking change: Create the modal open trigger somewhere else in your app
+
+The trigger the user taps to open the modal should no longer be passed in to
+the `<px-modal>` component as a child. Create a trigger element somewhere else
+in your application and data-bind a reference to your trigger to the new
+`openTrigger` property on `<px-modal>`.
+
+This is an example of the old deprecated way to define a trigger:
+
+```
+<px-modal>
+  <button class="modal-trigger">Show modal</button>
+</px-modal>
+```
+
+To upgrade to the new way, the above code should be changed to:
+
+```
+<!-- Inside a Polymer template -->
+<px-modal open-trigger="[[modalTrigger]]"></px-modal>
+<px-modal-trigger trigger="{{modalTrigger}}">
+  <!-- Mouse, touch, and keyboard events on this button show the modal -->
+  <button>Show modal</button>
+</px-modal-trigger>
+```
+
+You can also control the modal by updating the `opened` property. Setting it to
+`true` opens the modal, and setting it to `false` closes the modal. Update the
+`opened` property when the user performs an action that should show/hide the
+modal if you want to control its visibility through properties alone.
+For example:
+
+```
+<px-modal id="modal"></px-modal>
+<button id="trigger">Show modal</button>
+<script>
+  var modal = document.getElementById('modal');
+  var trigger = document.getElementById('trigger');
+  trigger.addEventListener('click', (e) => {
+    modal.opened = true;
+  }, false);
+</script>
+```
+
+See the px-modal documentation for more information on using the new modal APIs.
+
+## Breaking change: Properties renamed and removed, methods removed
+
+* The `modalHeading` property is renamed to `headerText`
+* The `btnModalPositive` property is renamed to `acceptText`
+* The `btnModalNegative` property is renamed to `rejectText`
+* The `modalId` property is deprecated and removed
+* The `modalIdTitle()` method is deprecated and removed
+* The `modalActionButtonClicked()` method is deprecated and removed
+* The `modalButtonClicked()` method is removed, just set the `opened` property
+  to `true` or `false` to show/hide the modal
+* The `btnModalPositiveClickedEventName` and `btnModalNegativeClickedEventName`
+  Properties are deprecated and removed, see migration tips below
+
+## Breaking change: Custom event renaming removed, use new events
+
+The `btnModalPositiveClickedEventName` and `btnModalNegativeClickedEventName`
+properties have been removed, and custom event names can no longer be chosen.
+The modal now fires the `px-modal-accepted` event when the user taps the
+accept trigger and the `px-modal-rejected` event when the user taps the reject
+trigger. To migrate, change your event listeners to catch these new events
+and decide how to handle the action in your application code. If you want
+to continue firing custom named events, you can attach an event listener to
+`<px-modal>` in your app and fire a custom event manually when one of the
+standard events are fired.
+
+## Breaking change: CSS mixins removed
+
+CSS mixins are deprecated because the browser vendors have decided not to move
+forward with that specification. Search in your code and remove the following
+mixins if they are used:
+
+```
+--px-modal
+--px-modal-content
+--px-modal-title
+--px-modal-buttons
+--px-modal-positive-button
+```
+
 v2.0.8
 ==================
 * add device flags
