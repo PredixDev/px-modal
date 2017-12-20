@@ -55,9 +55,8 @@ automatically hide itself and fire relevant events.
 The user can accept or reject a modal prompt. Apps may want to respond differently
 depending on what the user selects. For example, if the user accepts a delete
 confirmation modal the app should delete the record, and if the user rejects the
-modal the apps should cancel the deletion. Listen for the
-`px-modal-rejected` and `px-modal-accepted` events
-to respond to user actions:
+modal the apps should cancel the deletion. Listen for the `px-modal-rejected`
+and `px-modal-accepted` events to respond to user actions:
 
     <px-modal
         id="confirmModal"
@@ -76,6 +75,11 @@ to respond to user actions:
         // ... handle accept action here ...
       });
     </script>
+
+By default, the modal is dismissed when the user presses the escape key. Listen
+for the `px-modal-dismissed` event to respond to this action. Set the
+`disableCloseOnEscape` property to `true` to keep the modal open when the
+user presses the escape key.
 
 ### Styling
 
@@ -182,6 +186,17 @@ Custom property | Description
         openTrigger: {
           type: HTMLElement,
           observer: '_handleOpenTriggerUpdated'
+        },
+
+        /**
+         * By default the user can press escape to dismiss the modal. Set this
+         * property to `true` to disable that functionality if you want to
+         * force the user to interact with the accept/reject buttons to
+         * dismiss the modal.
+         */
+        disableCloseOnEscape: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -265,10 +280,18 @@ Custom property | Description
             this._lastFocusableElement.focus();
           }
         }
-        if (evt.key === 'Escape') {
+        if (evt.key === 'Escape' && !this.disableCloseOnEscape) {
           this.opened = false;
+          this.fire('px-modal-dismissed');
         }
       },
+      /**
+       * Fired when the user presses the escape button to dismiss the modal.
+       * This event does not mean the user accepted or rejected the modal
+       * prompt. To force the user to accept/reject the modal, set the
+       * `disableCloseOnEscape` property to `true`.
+       * @event px-modal-dismissed
+       */
 
       /**
        * After the modal animates into visibility focus the first focusable element.
