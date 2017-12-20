@@ -1,3 +1,10 @@
+v3.0.1
+==================
+* Adds the `px-modal-dismissed` event which is fired when the user closes
+  the modal by pressing the escape key
+* Adds the `disableCloseOnEscape` property which keeps the modal open when
+  the user presses the escape key
+
 v3.0.0
 ==================
 Upgrades `<px-modal>` element and its related styles to support Polymer 1 and 2.
