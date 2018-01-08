@@ -37,13 +37,15 @@
 
       <!-- Component ---------------------------------------------------------->
       <px-demo-component slot="px-demo-component">
-        <div>
+        <div id="demoContainer">
           <px-modal
+              id="demoModal"
               header-text="{{props.headerText.value}}"
               body-text="{{props.bodyText.value}}"
               accept-text="{{props.acceptText.value}}"
               reject-text="{{props.rejectText.value}}"
-              open-trigger="[[openTrigger]]">
+              open-trigger="[[openTrigger]]"
+              fill-container="{{props.fillContainer.value}}">
           </px-modal>
           <px-modal-trigger trigger="{{openTrigger}}">
             <button>Open Modal</button>
@@ -72,6 +74,10 @@
 <script>
   Polymer({
     is: 'px-modal-demo',
+
+    observers: [
+      'updateFitInto(props.fillContainer.value)'
+    ],
 
     properties: {
 
@@ -115,6 +121,12 @@
         inputType: 'text'
       },
 
+      fillContainer: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+
       openTrigger: {
         type: String,
         value: '[[trigger]]'
@@ -125,6 +137,18 @@
         defaultValue: '<px-modal-trigger trigger="{{trigger}}"><button>Open Modal</button></px-modal-trigger>'
       }
 
+    },
+
+    updateFitInto(fillContainer) {
+      var modal = this.$.demoModal;
+      if(fillContainer === true) {
+        var demoInteractive = this.$$('px-demo-interactive'),
+            container = Polymer.dom(demoInteractive.root).querySelector('.demo-component-container');
+        modal.set('fitInto', container);
+      }
+      else if(fillContainer === false) {
+        modal.set('fitInto', window);
+      }
     }
 
   });

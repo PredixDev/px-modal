@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="px-modal-trigger.html"/>
 <link rel="import" href="css/px-modal-styles.html"/>
+<link rel="import" href="../iron-fit-behavior/iron-fit-behavior.html"/>
 
 <!--
 Modals open over the page content and prompt the user to take some actions before
@@ -50,6 +51,28 @@ and `reject-trigger` slots to define custom content:
 When the user taps on elements passed into the trigger slots the modal will
 automatically hide itself and fire relevant events.
 
+### Application modal
+
+As opposed to the modal dialog use case above, your application may need to provide a larger, more interactive
+modal - the user is still focused on completing a task outside of the regular application flow, but may need more
+space. An example would be drilling down from a table into a detail view for a specific row in that table,
+taking some action to disposition the row, and returning the user to the main view. In this case, use the `fill-container`
+and `fit-into` properties to specify what portion of the screen should be taken up by the modal
+(usually the main content frame of your application):
+
+    <px-modal id="myModal" header-text="Detail view" fill-container>
+      <div slot="body">
+        // Content here
+      </div>
+    </px-modal>
+
+    <script>
+      var modal = document.getElementById('myModal');
+      var frame = document.getElementById('myApplicationFrame');
+      modal.set('fitInto', frame);
+    </script>
+
+
 ### Responding to accept and reject triggers
 
 The user can accept or reject a modal prompt. Apps may want to respond differently
@@ -67,7 +90,7 @@ and `px-modal-accepted` events to respond to user actions:
         opened>
     </px-modal>
     <script>
-      var modal = document.getElementByID('confirmModal');
+      var modal = document.getElementById('confirmModal');
       modal.addEventListener('px-modal-rejected', function(e) {
         // ... handle reject action here ...
       });
@@ -87,9 +110,11 @@ The following custom properties are available for styling:
 
 Custom property | Description
 :------------|:-------------
-`--px-modal-background-color` | Background color of the modal dialog
-`--px-modal-overlay-color`    | Color of the overlay that covers the screen behind the modal dialog
-`--px-modal-text-color`       | Text color for content set with properties (slotted content will not use this color)
+`--px-modal-background-color`            | Background color of the modal dialog
+`--px-modal-background-color--container` | Background color of the modal dialog when fill-container is true
+`--px-modal-overlay-color`               | Color of the overlay that covers the screen behind the modal dialog
+`--px-modal-text-color`                  | Text color for content set with properties (slotted content will not use this color)
+`--px-modal-text-color--container`       | Text color for content set with properties when fill-container is true
 
 @element px-modal
 @blurb Shows a modal that overlays the screen
@@ -102,17 +127,19 @@ Custom property | Description
 
     <div class="modal" id="modal" on-transitionend="_handleTransitionEnd">
       <div class="modal__box shadow-modal">
-        <!-- Header -->
-        <div class="modal__header">
-          <slot name="header">
-            <h3 class="modal__header__text epsilon weight--normal">[[headerText]]</h3>
-          </slot>
-        </div>
-        <!-- Body -->
-        <div class="modal__body">
-          <slot name="body">
-            <p class="modal__body__text">[[bodyText]]</p>
-          </slot>
+        <div>
+          <!-- Header -->
+          <div class="modal__header">
+            <slot name="header">
+              <span class="modal__header__text epsilon weight--normal">[[headerText]]</span>
+            </slot>
+          </div>
+          <!-- Body -->
+          <div class="modal__body">
+            <slot name="body">
+              <span class="modal__body__text">[[bodyText]]</span>
+            </slot>
+          </div>
         </div>
         <!-- Actions -->
         <div class="modal__triggers">
@@ -138,6 +165,8 @@ Custom property | Description
   (() => {
     Polymer({
       is: 'px-modal',
+
+      behaviors: [Polymer.IronFitBehavior],
 
       properties: {
         /**
@@ -197,8 +226,33 @@ Custom property | Description
         disableCloseOnEscape: {
           type: Boolean,
           value: false
+        },
+
+        /**
+        * By default, the modal will fit itself into the Window for use with
+        * modal dialogs. Set this property to create a modal that fills another
+        * container instead, for instance the main content area of your app.
+        * You can specify which container using the `fitInto` property.
+        */
+        fillContainer: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+          observer: '_handleFillContainerChanged'
+        },
+
+        /**
+        * Used by iron-fit-behavior to attach the modal to the Window by default.
+        */
+        autoFitOnAttach: {
+          type: Boolean,
+          value: true
         }
       },
+
+      observers: [
+        '_refit(fillContainer, fitInto)'
+      ],
 
       created() {
         this._modalKeypressFn = this._handleModalKeypress.bind(this);
@@ -317,24 +371,43 @@ Custom property | Description
           newTrigger.addEventListener('keydown', this._openTriggerKeydownFn, false);
         }
       },
-
+      /**
+       * Fired when the reject trigger is tapped (after the modal is closed).
+       * @event px-modal-rejected
+       */
       _handleRejectTriggerTapped() {
         this.opened = false;
         this.fire('px-modal-rejected');
       },
       /**
-       * Fired when the reject trigger is tapped (after the modal is closed).
-       * @event px-modal-rejected
-       */
-
-      _handleAcceptTriggerTapped() {
-        this.opened = false;
-        this.fire('px-modal-accepted');
-      }
-      /**
        * Fired when the accept trigger is tapped (after the modal is closed).
        * @event px-modal-accepted
        */
+      _handleAcceptTriggerTapped() {
+        this.opened = false;
+        this.fire('px-modal-accepted');
+      },
+      _handleFillContainerChanged(newValue) {
+        if(newValue === true) {
+          this.listen(this.fitInto, 'scroll', '_refit');
+          this.listen(this.fitInto, 'resize', '_refit');
+        }
+        else {
+          this.unlisten(this.fitInto, 'scroll', '_refit');
+          this.unlisten(this.fitInto, 'resize', '_refit');
+        }
+      },
+      /**
+      * Handles refitting modals that are supposed to fill a container
+      * when the screen is scrolled and the container presumably moves.
+      */
+       _refit() {
+        if(this.fillContainer && this.fitInto) {
+          this.debounce('refit', function() {
+            this.refit();
+          }, 10);
+        }
+      }
     });
 
     /*

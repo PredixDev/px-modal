@@ -1,3 +1,7 @@
+v3.1.0
+==================
+* added the fill-container property and iron-fit-behavior to enable modals within containers
+
 v3.0.1
 ==================
 * Adds the `px-modal-dismissed` event which is fired when the user closes
