@@ -9,6 +9,7 @@
 <link rel="import" href="../../px-demo/px-demo-props.html" />
 <link rel="import" href="../../px-demo/px-demo-interactive.html" />
 <link rel="import" href="../../px-demo/px-demo-component-snippet.html" />
+<link rel="import" href="../../px-rangepicker/px-rangepicker.html" />
 
 <!-- Imports for this component -->
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
@@ -46,6 +47,9 @@
               reject-text="{{props.rejectText.value}}"
               open-trigger="[[openTrigger]]"
               fill-container="{{props.fillContainer.value}}">
+              <div slot="body">
+                <px-rangepicker></px-rangepicker>
+              </div>
           </px-modal>
           <px-modal-trigger trigger="{{openTrigger}}">
             <button>Open Modal</button>

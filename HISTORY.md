@@ -1,3 +1,7 @@
+v3.1.1
+==================
+* fix overflow for custom content use cases
+
 v3.1.0
 ==================
 * added the fill-container property and iron-fit-behavior to enable modals within containers
