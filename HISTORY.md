@@ -1,3 +1,7 @@
+v3.1.2
+==================
+* oops, reverting demo
+
 v3.1.1
 ==================
 * fix overflow for custom content use cases
