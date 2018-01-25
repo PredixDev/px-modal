@@ -1,3 +1,7 @@
+v3.1.3
+==================
+* add missing iron-fit dep (#26)
+
 v3.1.2
 ==================
 * oops, reverting demo
