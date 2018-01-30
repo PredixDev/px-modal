@@ -1,3 +1,7 @@
+v3.1.4
+==================
+* fix demo on mobile (#29)
+
 v3.1.3
 ==================
 * add missing iron-fit dep (#26)

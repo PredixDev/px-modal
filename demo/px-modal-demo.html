@@ -145,9 +145,11 @@
         var demoInteractive = this.$$('px-demo-interactive'),
             container = Polymer.dom(demoInteractive.root).querySelector('.demo-component-container');
         modal.set('fitInto', container);
+        modal.refit();
       }
-      else if(fillContainer === false) {
+      else {
         modal.set('fitInto', window);
+        modal.refit();
       }
     }
 
