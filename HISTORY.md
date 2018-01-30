@@ -1,3 +1,8 @@
+v3.2.0
+==================
+* Add `actions` slot to allow developer to define custom action buttons or text
+  inline with the reject and accept triggers
+
 v3.1.5
 ==================
 * fix documentation slightly
