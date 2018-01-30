@@ -436,7 +436,7 @@
         {
           "name": "opened",
           "type": "boolean",
-          "description": "Set to `true` to show the modal or `false` to hide the modal.\nAutomatically updated when the use user taps a trigger that opens or\ncloses the modal.",
+          "description": "Set this flag to show the modal, remove it to hide the modal.\nAutomatically updated when the user taps a trigger that opens or\ncloses the modal.",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -1447,7 +1447,7 @@
         },
         {
           "name": "opened",
-          "description": "Set to `true` to show the modal or `false` to hide the modal.\nAutomatically updated when the use user taps a trigger that opens or\ncloses the modal.",
+          "description": "Set this flag to show the modal, remove it to hide the modal.\nAutomatically updated when the user taps a trigger that opens or\ncloses the modal.",
           "sourceRange": {
             "start": {
               "line": 200,

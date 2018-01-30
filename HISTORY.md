@@ -1,3 +1,7 @@
+v3.1.5
+==================
+* fix documentation slightly
+
 v3.1.4
 ==================
 * fix demo on mobile (#29)
