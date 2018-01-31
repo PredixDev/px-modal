@@ -1,3 +1,7 @@
+v3.2.1
+==================
+* add refit on open
+
 v3.2.0
 ==================
 * Add `actions` slot to allow developer to define custom action buttons or text

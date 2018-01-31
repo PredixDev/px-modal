@@ -278,6 +278,7 @@ Custom property | Description
           this._firstFocusableElement = focusableElements[0];
           this._lastFocusableElement = focusableElements[focusableElements.length-1];
           this.addEventListener('keydown', this._modalKeypressFn, false);
+          this.refit();
         }
         else {
           this.removeEventListener('keydown', this._modalKeypressFn);
