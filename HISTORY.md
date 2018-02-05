@@ -1,3 +1,8 @@
+v3.2.2
+==================
+* Add temporary fix for bug where overflowed content is hidden in the
+  non-mobile style modal
+
 v3.2.1
 ==================
 * add refit on open
