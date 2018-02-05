@@ -71,6 +71,7 @@ $inuit-enable-btn--disabled        : true;
   max-height: calc(100% - 2rem);
   max-width: calc(100% - 2rem);
   overflow: visible;
+  overflow-y: auto;
   white-space: normal;
   word-wrap: break-word;
   background-color: var(--px-modal-background-color, white);
@@ -130,6 +131,7 @@ $inuit-enable-btn--disabled        : true;
 
 .modal__triggers {
   display: flex;
+  flex-shrink: 0;
   justify-content: flex-end;
   padding: $inuit-base-spacing-unit--large;
   @include media-query(palm) {
