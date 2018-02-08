@@ -1,3 +1,11 @@
+v3.2.3
+==================
+* Don't dismiss the modal when click events fire from trigger containers.
+  This fixes a bug where the modal may be dismissed if the user clicks on a
+  button with the `disabled` attribute and the CSS rule `pointer-events: none`,
+  which triggers the event listener on the trigger container even when the
+  button should not be clickable.
+
 v3.2.2
 ==================
 * Add temporary fix for bug where overflowed content is hidden in the
