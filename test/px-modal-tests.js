@@ -113,6 +113,37 @@ describe('px-modal [slots]', () => {
     expect(modal.opened).to.be.false;
   });
 
+  it('does not hide the modal when the accept container is tapped', () => {
+    modal.opened = true;
+    const acceptContainer = Polymer.dom(modal.root).querySelector('#accept-trigger-container');
+    acceptContainer.click();
+    expect(modal.opened).to.be.true;
+  });
+
+  it('does not hide the modal when the reject container is tapped', () => {
+    modal.opened = true;
+    const rejectContainer = Polymer.dom(modal.root).querySelector('#reject-trigger-container');
+    rejectContainer.click();
+    expect(modal.opened).to.be.true;
+  });
+
+  it('does not hide the modal when the disabled accept trigger is tapped', () => {
+    modal.opened = true;
+    const slottedAcceptButton = fx.querySelector('#acceptButton');
+    slottedAcceptButton.setAttribute('disabled', '');
+    slottedAcceptButton.click();
+    expect(modal.opened).to.be.true;
+  });
+
+  it('does not hide the modal when the disabled reject trigger is tapped', () => {
+    modal.opened = true;
+    const slottedRejectButton = fx.querySelector('#rejectButton');
+    slottedRejectButton.setAttribute('disabled', '');
+    slottedRejectButton.click();
+    expect(modal.opened).to.be.true;
+  });
+
+
   it('fires the `px-modal-rejected` event when the slotted reject trigger is tapped', () => {
     const eventCallback = sinon.spy();
     modal.addEventListener('px-modal-rejected', eventCallback);

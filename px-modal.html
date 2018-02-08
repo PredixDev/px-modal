@@ -149,13 +149,13 @@ Custom property | Description
           <!-- Custom actions -->
           <slot name="actions"></slot>
           <!-- Actions: Reject -->
-          <div class="modal__reject-trigger" on-tap="_handleRejectTriggerTapped">
+          <div class="modal__reject-trigger" on-tap="_handleRejectTriggerTapped" id="reject-trigger-container">
             <slot name="reject-trigger">
               <button type="button" class="btn" id="reject-trigger-button">[[rejectText]]</button>
             </slot>
           </div>
           <!-- Actions: Accept -->
-          <div class="modal__accept-trigger" on-tap="_handleAcceptTriggerTapped">
+          <div class="modal__accept-trigger" on-tap="_handleAcceptTriggerTapped" id="accept-trigger-container">
             <slot name="accept-trigger">
               <button type="button" class="btn btn--call-to-action" id="accept-trigger-button">[[acceptText]]</button>
             </slot>
@@ -383,17 +383,29 @@ Custom property | Description
        * Fired when the reject trigger is tapped (after the modal is closed).
        * @event px-modal-rejected
        */
-      _handleRejectTriggerTapped() {
-        this.opened = false;
-        this.fire('px-modal-rejected');
+      _handleRejectTriggerTapped(e) {
+        const target = Polymer.dom(e).rootTarget;
+        const triggerContainer = Polymer.dom(this.root).querySelector('#reject-trigger-container');
+        // We should only close the modal if the user clicked on a button,
+        // not if this click event is sourced from the container.
+        if (target !== triggerContainer) {
+          this.opened = false;
+          this.fire('px-modal-rejected');
+        }
       },
       /**
        * Fired when the accept trigger is tapped (after the modal is closed).
        * @event px-modal-accepted
        */
-      _handleAcceptTriggerTapped() {
-        this.opened = false;
-        this.fire('px-modal-accepted');
+      _handleAcceptTriggerTapped(e) {
+        const target = Polymer.dom(e).rootTarget;
+        const triggerContainer = Polymer.dom(this.root).querySelector('#accept-trigger-container');
+        // We should only close the modal if the user clicked on a button,
+        // not if this click event is sourced from the container.
+        if (target !== triggerContainer) {
+          this.opened = false;
+          this.fire('px-modal-accepted');
+        }
       },
       _handleFillContainerChanged(newValue) {
         if(newValue === true) {
