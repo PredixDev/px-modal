@@ -2,7 +2,7 @@
     "name": "px-modal",
     "author": "General Electric",
     "description": "A Predix UI component that provides an overlay and modal dialog",
-    "version": "3.2.4",
+    "version": "3.3.0",
     "private": false,
     "extName": null,
     "repository": {
