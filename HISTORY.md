@@ -1,3 +1,7 @@
+v3.3.1
+==================
+* Check if event target is disabled before dismissing modal
+
 v3.3.0
 ==================
 * Added --px-modal-z-index css var
