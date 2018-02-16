@@ -387,9 +387,15 @@ Custom property | Description
       _handleRejectTriggerTapped(e) {
         const target = Polymer.dom(e).rootTarget;
         const triggerContainer = Polymer.dom(this.root).querySelector('#reject-trigger-container');
-        // We should only close the modal if the user clicked on a button,
-        // not if this click event is sourced from the container.
-        if (target !== triggerContainer) {
+        /*
+         * - First check: We should only close the modal if the user clicked on
+         *   a button, not if this click event is sourced from the container.
+         * - Second check: A click on a disabled input element like a <button>
+         *   should not trigger our click listener. But it does in IE. So we
+         *   manually check the event source, and ignore the event if the
+         *   source has the `disabled` attribute. Bof.
+         */
+        if (target !== triggerContainer && !target.hasAttribute('disabled')) {
           this.opened = false;
           this.fire('px-modal-rejected');
         }
@@ -401,9 +407,15 @@ Custom property | Description
       _handleAcceptTriggerTapped(e) {
         const target = Polymer.dom(e).rootTarget;
         const triggerContainer = Polymer.dom(this.root).querySelector('#accept-trigger-container');
-        // We should only close the modal if the user clicked on a button,
-        // not if this click event is sourced from the container.
-        if (target !== triggerContainer) {
+        /*
+         * - First check: We should only close the modal if the user clicked on
+         *   a button, not if this click event is sourced from the container.
+         * - Second check: A click on a disabled input element like a <button>
+         *   should not trigger our click listener. But it does in IE. So we
+         *   manually check the event source, and ignore the event if the
+         *   source has the `disabled` attribute. Bof.
+         */
+        if (target !== triggerContainer && !target.hasAttribute('disabled')) {
           this.opened = false;
           this.fire('px-modal-accepted');
         }
