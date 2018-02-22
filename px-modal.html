@@ -130,7 +130,7 @@ Custom property | Description
     <style include="px-modal-styles"></style>
 
     <div class="modal" id="modal" on-transitionend="_handleTransitionEnd">
-      <div class="modal__box shadow-modal">
+      <div id="box" class="modal__box shadow-modal" style="display:none">
         <div>
           <!-- Header -->
           <div class="modal__header">
@@ -274,6 +274,10 @@ Custom property | Description
 
       _handleOpenedChanged(opened) {
         if (opened) {
+
+          //make the box visible now so it can get animations. On close
+          //change the display on transitionend
+          this.$.box.style['display'] = 'flex';
           this._elementFocusedBeforeOpened = document.activeElement;
           const focusableElements = this._getFocusableElements();
           this._firstFocusableElement = focusableElements[0];
@@ -360,12 +364,17 @@ Custom property | Description
        * After the modal animates into visibility focus the first focusable element.
        */
       _handleTransitionEnd(evt) {
-        let modal = Polymer.dom(this.root).querySelector('#modal');
-        if (Polymer.dom(evt).rootTarget === modal) {
+        if (Polymer.dom(evt).rootTarget === this.$.modal) {
           this.debounce('handle-transition-end', () => {
-            if (this.opened && this._firstFocusableElement) {
-              this._firstFocusableElement.focus();
+
+            if(this.opened) {
+              if(this._firstFocusableElement) {
+                this._firstFocusableElement.focus();
+              }
+            } else {
+              this.$.box.style['display'] = 'none';
             }
+
           }, 1);
         }
       },
