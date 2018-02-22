@@ -1,3 +1,7 @@
+v3.3.2
+==================
+* Hide box completely when modal is not shown to avoid interactions
+
 v3.3.1
 ==================
 * Check if event target is disabled before dismissing modal
