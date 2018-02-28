@@ -1,3 +1,8 @@
+v3.3.3
+==================
+* Add `disableAutoFocus` property. When set to `true` the modal will not attempt
+  to focus the first focusable element in its slots or shadow root.
+
 v3.3.2
 ==================
 * Hide box completely when modal is not shown to avoid interactions
