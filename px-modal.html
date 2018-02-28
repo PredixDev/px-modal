@@ -235,6 +235,17 @@ Custom property | Description
         },
 
         /**
+         * By default the modal automatically focuses the first focusable
+         * element in its slots or shadow root. To disable this behavior set
+         * this property to `true`. Must be set before the modal is opened to
+         * work correctly.
+         */
+        disableAutoFocus: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
         * By default, the modal will fit itself into the Window for use with
         * modal dialogs. Set this property to create a modal that fills another
         * container instead, for instance the main content area of your app.
@@ -274,25 +285,53 @@ Custom property | Description
 
       _handleOpenedChanged(opened) {
         if (opened) {
-
-          //make the box visible now so it can get animations. On close
-          //change the display on transitionend
+          // Make the box visible now so it can get animations
+          // On close change the display on transitionend (in `_handleTransitionEnd()`)
           this.$.box.style['display'] = 'flex';
-          this._elementFocusedBeforeOpened = document.activeElement;
-          const focusableElements = this._getFocusableElements();
-          this._firstFocusableElement = focusableElements[0];
-          this._lastFocusableElement = focusableElements[focusableElements.length-1];
           this.addEventListener('keydown', this._modalKeypressFn, false);
-          this.refit();
         }
         else {
           this.removeEventListener('keydown', this._modalKeypressFn);
-          this._firstFocusableElement = null;
-          this._lastFocusableElement = null;
-          if (this._elementFocusedBeforeOpened) {
-            this._elementFocusedBeforeOpened.focus();
-            this._elementFocusedBeforeOpened = null;
-          }
+        }
+      },
+
+      /**
+       * After the modal animates into visibility try to focus the first
+       * focusable element.
+       *
+       * After the modal animates out of visibility try to return focus to the
+       * document element that was focused before the modal was opened.
+       */
+      _handleTransitionEnd(evt) {
+        if (Polymer.dom(evt).rootTarget === this.$.modal) {
+          this.debounce('handle-transition-end', () => {
+
+            if (this.opened) {
+              this.refit();
+              // When the modal first opens, find focusable elements and
+              // focus the first one, unless the `disableAutoFocus` boolean
+              // is set to `true`
+              this._elementFocusedBeforeOpened = document.activeElement;
+              const focusableElements = this._getFocusableElements();
+              this._firstFocusableElement = focusableElements[0];
+              this._lastFocusableElement = focusableElements[focusableElements.length-1];
+              if (this._firstFocusableElement && !this.disableAutoFocus) {
+                this._firstFocusableElement.focus();
+              }
+            } else {
+              // Set the display back to none to make the modal invisible
+              this.$.box.style['display'] = 'none';
+              // Focus the last focused element in the document unless the
+              // `disableAutoFocus` boolean is set to `true`
+              this._firstFocusableElement = null;
+              this._lastFocusableElement = null;
+              if (this._elementFocusedBeforeOpened && !this.disableAutoFocus) {
+                this._elementFocusedBeforeOpened.focus();
+              }
+              this._elementFocusedBeforeOpened = null;
+            }
+
+          }, 1);
         }
       },
 
@@ -359,25 +398,6 @@ Custom property | Description
        * `disableCloseOnEscape` property to `true`.
        * @event px-modal-dismissed
        */
-
-      /**
-       * After the modal animates into visibility focus the first focusable element.
-       */
-      _handleTransitionEnd(evt) {
-        if (Polymer.dom(evt).rootTarget === this.$.modal) {
-          this.debounce('handle-transition-end', () => {
-
-            if(this.opened) {
-              if(this._firstFocusableElement) {
-                this._firstFocusableElement.focus();
-              }
-            } else {
-              this.$.box.style['display'] = 'none';
-            }
-
-          }, 1);
-        }
-      },
 
       _handleOpenTriggerUpdated(newTrigger, oldTrigger) {
         if (oldTrigger) {
