@@ -344,10 +344,7 @@ Custom property | Description
        */
       _getFocusableElements() {
         const focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
-        let focusableSlottedElements = Polymer.dom(this).querySelectorAll('button') || [];
-        if (focusableSlottedElements instanceof NodeList) {
-          focusableSlottedElements = Array.prototype.slice.call(focusableSlottedElements);
-        }
+        const focusableSlottedElements = Array.prototype.slice.call(Polymer.dom(this).querySelectorAll(focusableElementsString));
         const shadowAcceptTrigger = Polymer.dom(this.root).querySelector('#accept-trigger-button');
         const shadowRejectTrigger = Polymer.dom(this.root).querySelector('#reject-trigger-button');
         const slottedAcceptTrigger = focusableSlottedElements.find(n => n.getAttribute('slot') === 'accept-trigger');
