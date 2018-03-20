@@ -162,3 +162,29 @@ describe('px-modal [slots]', () => {
     expect(eventCallback).to.be.calledOnce;
   });
 });
+
+describe('px-modal with different focusable elements', () => {
+  let fx;
+  let modal;
+  let trigger;
+  let openButton;
+
+  beforeEach((done) => {
+    fx = fixture('ModalFixtureWithFocusableElements');
+    modal = fx.querySelector('px-modal');
+    trigger = fx.querySelector('px-modal-trigger');
+    openButton = fx.querySelector('#openButton');
+    flush(() => {
+      /* Bind the trigger to the modal */
+      modal.openTrigger = trigger.trigger;
+      done();
+    });
+  });
+
+  it('should return the correct array of focusable elements', () => {
+    openButton.click();
+    const focusableElements = modal._getFocusableElements();
+    expect(focusableElements.length).to.equal(7);
+  });
+
+});

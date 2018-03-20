@@ -61,5 +61,34 @@
         </div>
       </template>
     </test-fixture>
+
+    <test-fixture id="ModalFixtureWithFocusableElements">
+      <template>
+        <div>
+          <px-modal>
+            <h1 slot="header">Different kinds of focusable elements</h1>
+            <div slot="body">
+              <a href="https://example.com">Anchor with href</a>
+              <a>Anchor without href, shoudn't be focusable</a>
+              <div tabindex="0">focusable div</div>
+              <input type="text">
+              <input type="text" disabled>
+              <select>
+                <option></option>
+              </select>
+              <select disabled>
+                <option></option>
+              </select>
+              <div contenteditable>div contenteditable</div>
+            </div>
+            <button slot="reject-trigger" id="rejectButton">Cancel</button>
+            <button slot="accept-trigger" id="acceptButton">Permanently Delete Record</button>
+          </px-modal>
+          <px-modal-trigger>
+            <button id="openButton">Open Modal</button>
+          </px-modal-trigger>
+        </div>
+      </template>
+    </test-fixture>
   </body>
 </html>
