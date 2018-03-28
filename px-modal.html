@@ -2,6 +2,7 @@
 <link rel="import" href="px-modal-trigger.html"/>
 <link rel="import" href="css/px-modal-styles.html"/>
 <link rel="import" href="../iron-fit-behavior/iron-fit-behavior.html"/>
+<link rel="import" href="../iron-overlay-behavior/iron-focusables-helper.html">
 
 <!--
 Modals open over the page content and prompt the user to take some actions before
@@ -264,6 +265,15 @@ Custom property | Description
         autoFitOnAttach: {
           type: Boolean,
           value: true
+        },
+
+        /**
+         * Focusable elements inside the modal, determined with
+         * `Polymer.IronFocusablesHelper.getTabbableNodes()`.
+         */
+        _focusableElements: {
+          type: Array,
+          value: []
         }
       },
 
@@ -312,19 +322,17 @@ Custom property | Description
               // focus the first one, unless the `disableAutoFocus` boolean
               // is set to `true`
               this._elementFocusedBeforeOpened = document.activeElement;
-              const focusableElements = this._getFocusableElements();
-              this._firstFocusableElement = focusableElements[0];
-              this._lastFocusableElement = focusableElements[focusableElements.length-1];
-              if (this._firstFocusableElement && !this.disableAutoFocus) {
-                this._firstFocusableElement.focus();
+              this.findFocusableElements();
+              if (this._focusableElements.length) {
+                if (this._firstFocusableElement && !this.disableAutoFocus) {
+                  this._firstFocusableElement.focus();
+                }
               }
             } else {
               // Set the display back to none to make the modal invisible
               this.$.box.style['display'] = 'none';
               // Focus the last focused element in the document unless the
               // `disableAutoFocus` boolean is set to `true`
-              this._firstFocusableElement = null;
-              this._lastFocusableElement = null;
               if (this._elementFocusedBeforeOpened && !this.disableAutoFocus) {
                 this._elementFocusedBeforeOpened.focus();
               }
@@ -336,27 +344,20 @@ Custom property | Description
       },
 
       /**
-       * Searches for focusable elements passed in via slots or created in this
-       * component's shadow DOM template. Returns an array of focusable
-       * elements.
-       *
-       * @return {Array.<HTMLElement>}
+       * Find focusable elements inside the modal by using `IronFocusablesHelper`'s
+       * `getTabbableNodes()` helper method.
+       * Call this method in case you are dymanically changing the modal's content
+       * to update the array of focusable elements .
        */
-      _getFocusableElements() {
-        const focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
-        let focusableSlottedElements = Polymer.dom(this).querySelectorAll('button') || [];
-        if (focusableSlottedElements instanceof NodeList) {
-          focusableSlottedElements = Array.prototype.slice.call(focusableSlottedElements);
+      findFocusableElements() {
+        this._focusableElements = Polymer.IronFocusablesHelper.getTabbableNodes(this);
+        if (this._focusableElements.length) {
+          this._firstFocusableElement = this._focusableElements[0];
+          this._lastFocusableElement = this._focusableElements[this._focusableElements.length-1];
+        } else {
+          this._firstFocusableElement = null;
+          this._lastFocusableElement = null;
         }
-        const shadowAcceptTrigger = Polymer.dom(this.root).querySelector('#accept-trigger-button');
-        const shadowRejectTrigger = Polymer.dom(this.root).querySelector('#reject-trigger-button');
-        const slottedAcceptTrigger = focusableSlottedElements.find(n => n.getAttribute('slot') === 'accept-trigger');
-        const slottedRejectTrigger = focusableSlottedElements.find(n => n.getAttribute('slot') === 'reject-trigger');
-        return focusableSlottedElements
-          .filter(n => n !== slottedAcceptTrigger && n !== slottedRejectTrigger)
-          .concat([(slottedRejectTrigger || shadowRejectTrigger), (slottedAcceptTrigger || shadowAcceptTrigger)])
-          // Some items might be invisible because they are superseded by a slot, do not make those focusable
-          .filter(n => n.offsetHeight > 0);
       },
 
       /**
@@ -369,11 +370,18 @@ Custom property | Description
            * When the user tabs forward past the last focusable element,
            * focus the first focusable element
            */
-          let lastFocusedElement = Polymer.dom(evt).rootTarget;
-          if (lastFocusedElement && this._firstFocusableElement && lastFocusedElement === this._lastFocusableElement) {
-            evt.preventDefault();
-            this._firstFocusableElement.focus();
+          const lastFocusedElement = Polymer.dom(evt).rootTarget;
+          if (lastFocusedElement) {
+            const lastFocusedElementIndex = this._focusableElements.indexOf(lastFocusedElement)
+            if (this._focusableElements[lastFocusedElementIndex + 1]) {
+              this._focusableElements[lastFocusedElementIndex + 1].focus()
+            } else {
+              this._firstFocusableElement.focus();
+            }
+          } else {
+            this._firstFocusableElement.focus()
           }
+          evt.preventDefault();
         }
         if (evt.key === 'Tab' && evt.shiftKey) {
           /*
@@ -381,6 +389,18 @@ Custom property | Description
            * focus the last focusable element
            */
           let lastFocusedElement = Polymer.dom(evt).rootTarget;
+          if (lastFocusedElement) {
+            const lastFocusedElementIndex = this._focusableElements.indexOf(lastFocusedElement)
+            if (this._focusableElements[lastFocusedElementIndex - 1]) {
+              this._focusableElements[lastFocusedElementIndex - 1].focus()
+            } else {
+              this._lastFocusableElement.focus();
+            }
+          } else {
+            this._lastFocusableElement.focus()
+          }
+          evt.preventDefault();
+
           if (lastFocusedElement && this._lastFocusableElement && lastFocusedElement === this._firstFocusableElement) {
             evt.preventDefault();
             this._lastFocusableElement.focus();

@@ -161,4 +161,13 @@ describe('px-modal [slots]', () => {
     slottedAcceptButton.click();
     expect(eventCallback).to.be.calledOnce;
   });
+
+  it('determines focusableElements correctly', (done) => {
+    modal.opened = true;
+    setTimeout(() => {
+      expect(modal._focusableElements.length).to.equal(3);
+      expect(modal._focusableElements[0].textContent).to.equal('Button inside Shadow DOM');
+      done();
+    }, 500) // wait for modal animation
+  })
 });
