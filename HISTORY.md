@@ -1,3 +1,7 @@
+v3.3.4
+==================
+* Improve looking up for focusable elements inside the modal
+
 v3.3.3
 ==================
 * Add `disableAutoFocus` property. When set to `true` the modal will not attempt
