@@ -32,78 +32,14 @@ Finally, use the component in your application:
 
 #### Examples
 
-Modal triggered by button click
 ```
 <px-modal
-  btn-modal-positive="Continue"
-  btn-modal-negative="Back"
-  modal-heading="Sign-in required">
-    <button class="btn btn--primary modal-trigger">Open Modal</button>
-    <p>
-      <b>Please sign-in to access this part of the application.</b>
-    </p>
-    <p>Lorem ipsum</p>
+    header-text="Confirm delete"
+    body-text="Do you want to delete this record? The record will be deleted permanently."
+    accept-text="Permanently Delete Record"
+    reject-text="Cancel"
+    opened>
 </px-modal>
-```
-
-Modal triggered by link
-```
-<px-modal
-  btn-modal-positive="Continue"
-  btn-modal-negative="Back"
-  modal-heading="Sign-in required">
-    <a href="javascript:void(0)" class="modal-trigger">Open Modal</a>
-    <p>
-      <b>Please sign-in to access this part of the application.</b>
-    </p>
-    <p><em>Two</em>Lorem ipsum dolor sit amet, </p>
-</px-modal>
-```
-
-An input that brings up a modal when input loses focus (onblur event)
-```
-<input onblur="inputLostFocus()" class="text-input" type="text" placeholder="…">
-<px-modal
-  id="three"
-  btn-modal-positive="Continue"
-  btn-modal-negative="Back"
-  modal-heading="Sign-in required">
-    <p>
-      <b>Please sign-in to access this part of the application.</b>
-    </p>
-    <p><em>Two</em>Lorem ipsum dolor sit amet, </p>
-</px-modal>
-
-<script>
-  function inputLostFocus(evt){
-    Polymer.dom(document).querySelector("#three").modalButtonClicked();
-  }
-</script>
-```
-
-Click on the link to open its modal, click OK to go to www.ge.com:
-```
-<a href="javascript:void(0)" onclick="gotoLink()">Goto GE.com?</a>
-<px-modal
-  id="four"
-  btn-modal-positive="Continue"
-  btn-modal-negative="Back"
-  modal-heading="Sign-in required">
-    <p>
-      <b>Please sign-in to access this part of the application.</b>
-    </p>
-    <p><em>Two</em>Lorem ipsum dolor sit amet, </p>
-</px-modal>
-
-<script>
-  function gotoLink(evt){
-    Polymer.dom(document).querySelector("#four").modalButtonClicked();
-  }
-
-  document.getElementById('four').addEventListener('btnModalPositiveClicked', function() {
-    window.location.href = 'https://www.ge.com';
-  });
-</script>
 ```
 
 ## Documentation
