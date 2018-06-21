@@ -185,7 +185,7 @@ Custom property | Description
 </dom-module>
 
 <script>
-  (() => {
+  (function() {
     Polymer({
       is: 'px-modal',
 
@@ -297,19 +297,19 @@ Custom property | Description
         '_refit(fillContainer, fitInto)'
       ],
 
-      created() {
+      created: function() {
         this._modalKeypressFn = this._handleModalKeypress.bind(this);
-        this._openTriggerTappedFn = () => {
+        this._openTriggerTappedFn = function() {
           this.opened = true
-        };
-        this._openTriggerKeydownFn = (evt) => {
+        }.bind(this);
+        this._openTriggerKeydownFn = function(evt) {
           if (evt.key === 'Enter') {
             this.opened = true;
           }
-        };
+        }.bind(this);
       },
 
-      _handleOpenedChanged(opened) {
+      _handleOpenedChanged: function(opened) {
         if (opened) {
           // Make the box visible now so it can get animations
           // On close change the display on transitionend (in `_handleTransitionEnd()`)
@@ -328,9 +328,9 @@ Custom property | Description
        * After the modal animates out of visibility try to return focus to the
        * document element that was focused before the modal was opened.
        */
-      _handleTransitionEnd(evt) {
+      _handleTransitionEnd: function(evt) {
         if (Polymer.dom(evt).rootTarget === this.$.modal) {
-          this.debounce('handle-transition-end', () => {
+          this.debounce('handle-transition-end', function() {
 
             if (this.opened) {
               this.refit();
@@ -355,7 +355,7 @@ Custom property | Description
               this._elementFocusedBeforeOpened = null;
             }
 
-          }, 1);
+          }.bind(this), 1);
         }
       },
 
@@ -365,7 +365,7 @@ Custom property | Description
        * Call this method in case you are dymanically changing the modal's content
        * to update the array of focusable elements .
        */
-      findFocusableElements() {
+      findFocusableElements: function() {
         this._focusableElements = Polymer.IronFocusablesHelper.getTabbableNodes(this);
         if (this._focusableElements.length) {
           this._firstFocusableElement = this._focusableElements[0];
@@ -380,15 +380,17 @@ Custom property | Description
        * Intercepts keyboard events when the modal is opened and traps user
        * focus on tab. Closes the modal when the user hits escape.
        */
-      _handleModalKeypress(evt) {
+      _handleModalKeypress: function(evt) {
+        var lastFocusedElement, lastFocusedElementIndex;
+
         if (evt.key === 'Tab' && !evt.shiftKey) {
           /*
            * When the user tabs forward past the last focusable element,
            * focus the first focusable element
            */
-          const lastFocusedElement = Polymer.dom(evt).rootTarget;
+          lastFocusedElement = Polymer.dom(evt).rootTarget;
           if (lastFocusedElement) {
-            const lastFocusedElementIndex = this._focusableElements.indexOf(lastFocusedElement)
+            lastFocusedElementIndex = this._focusableElements.indexOf(lastFocusedElement)
             if (this._focusableElements[lastFocusedElementIndex + 1]) {
               this._focusableElements[lastFocusedElementIndex + 1].focus()
             } else {
@@ -404,9 +406,9 @@ Custom property | Description
            * When the user tabs backward past the first focusable element,
            * focus the last focusable element
            */
-          let lastFocusedElement = Polymer.dom(evt).rootTarget;
+          lastFocusedElement = Polymer.dom(evt).rootTarget;
           if (lastFocusedElement) {
-            const lastFocusedElementIndex = this._focusableElements.indexOf(lastFocusedElement)
+            lastFocusedElementIndex = this._focusableElements.indexOf(lastFocusedElement)
             if (this._focusableElements[lastFocusedElementIndex - 1]) {
               this._focusableElements[lastFocusedElementIndex - 1].focus()
             } else {
@@ -435,7 +437,7 @@ Custom property | Description
        * @event px-modal-dismissed
        */
 
-      _handleOpenTriggerUpdated(newTrigger, oldTrigger) {
+      _handleOpenTriggerUpdated: function(newTrigger, oldTrigger) {
         if (oldTrigger) {
           oldTrigger.removeEventListener('click', this._openTriggerTappedFn);
           oldTrigger.removeEventListener('keydown', this._openTriggerKeydownFn);
@@ -449,9 +451,9 @@ Custom property | Description
        * Fired when the reject trigger is tapped (after the modal is closed).
        * @event px-modal-rejected
        */
-      _handleRejectTriggerTapped(e) {
-        const target = Polymer.dom(e).rootTarget;
-        const triggerContainer = Polymer.dom(this.root).querySelector('#reject-trigger-container');
+      _handleRejectTriggerTapped: function(e) {
+        var target = Polymer.dom(e).rootTarget;
+        var triggerContainer = Polymer.dom(this.root).querySelector('#reject-trigger-container');
         /*
          * - First check: We should only close the modal if the user clicked on
          *   a button, not if this click event is sourced from the container.
@@ -469,9 +471,9 @@ Custom property | Description
        * Fired when the accept trigger is tapped (after the modal is closed).
        * @event px-modal-accepted
        */
-      _handleAcceptTriggerTapped(e) {
-        const target = Polymer.dom(e).rootTarget;
-        const triggerContainer = Polymer.dom(this.root).querySelector('#accept-trigger-container');
+      _handleAcceptTriggerTapped: function(e) {
+        var target = Polymer.dom(e).rootTarget;
+        var triggerContainer = Polymer.dom(this.root).querySelector('#accept-trigger-container');
         /*
          * - First check: We should only close the modal if the user clicked on
          *   a button, not if this click event is sourced from the container.
@@ -485,7 +487,7 @@ Custom property | Description
           this.fire('px-modal-accepted');
         }
       },
-      _handleFillContainerChanged(newValue) {
+      _handleFillContainerChanged: function(newValue) {
         if(newValue === true) {
           this.listen(this.fitInto, 'scroll', '_refit');
           this.listen(this.fitInto, 'resize', '_refit');
@@ -499,7 +501,7 @@ Custom property | Description
       * Handles refitting modals that are supposed to fill a container
       * when the screen is scrolled and the container presumably moves.
       */
-       _refit() {
+       _refit: function() {
         if(this.fillContainer && this.fitInto) {
           this.debounce('refit', function() {
             this.refit();
