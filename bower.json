@@ -1,7 +1,9 @@
 {
   "name": "px-modal",
-  "version": "3.3.5",
-  "main": ["px-modal.html"],
+  "version": "3.3.4",
+  "main": [
+    "px-modal.html"
+  ],
   "ignore": [
     "*.enc",
     "**/.*",
