@@ -93,8 +93,14 @@ $inuit-enable-btn--disabled        : true;
   }
   @include media-query(lap-and-up) {
     width: var(--px-modal-width);
-    max-width: var(--px-modal-width, --px-modal-max-width, calc(100% - 2rem));
-    min-width: var(--px-modal-width, --px-modal-min-width, calculateRem(400px));
+    max-width: var(
+      --px-modal-width,
+      var(--px-modal-max-width, calc(100% - 2rem))
+    );
+    min-width: var(
+      --px-modal-width,
+      var(--px-modal-min-width, calculateRem(400px))
+    );
   }
 }
 
