@@ -167,21 +167,21 @@ Custom property | Description
           <!-- Custom actions -->
           <slot name="actions"></slot>
           <!-- Actions: Reject -->
-          <div class="modal__reject-trigger" on-tap="_handleRejectTriggerTapped" id="reject-trigger-container">
-            <template is="dom-if" if="{{ !hideRejectButton }}">
+          <template is="dom-if" if="{{!hideRejectButton}}">
+            <div class="modal__reject-trigger" on-tap="_handleRejectTriggerTapped" id="reject-trigger-container">
               <slot name="reject-trigger">
                 <button type="button" class="btn" id="reject-trigger-button">[[rejectText]]</button>
               </slot>
-            </template>
-          </div>
+            </div>
+          </template>
           <!-- Actions: Accept -->
-          <div class="modal__accept-trigger" on-tap="_handleAcceptTriggerTapped" id="accept-trigger-container">
-            <template is="dom-if" if="{{ !hideAcceptButton }}">
+          <template is="dom-if" if="{{!hideAcceptButton}}">
+            <div class="modal__accept-trigger" on-tap="_handleAcceptTriggerTapped" id="accept-trigger-container">
               <slot name="accept-trigger">
                 <button type="button" class="btn btn--call-to-action" id="accept-trigger-button">[[acceptText]]</button>
               </slot>
-            </template>
-          </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
