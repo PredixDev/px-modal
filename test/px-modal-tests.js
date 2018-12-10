@@ -117,7 +117,18 @@ describe("px-modal", () => {
     }, 500); // wait for modal animation
   });
 
-  it("hides the default reject button when the hideAcceptButton property is set", done => {
+  it("shows the default accept button when the hideAcceptButton property is not set", done => {
+    modal.opened = true;
+    setTimeout(() => {
+      const acceptTriggerButton = Polymer.dom(modal.root).querySelector(
+        "#accept-trigger-button"
+      );
+      expect(acceptTriggerButton).to.not.be.null;
+      done();
+    }, 500); // wait for modal animation
+  });
+
+  it("hides the default reject button when the hideRejectButton property is set", done => {
     modal.setAttribute("hide-reject-button", "true");
     modal.opened = true;
     setTimeout(() => {
@@ -125,6 +136,17 @@ describe("px-modal", () => {
         "#reject-trigger-button"
       );
       expect(rejectTriggerButton).to.be.null;
+      done();
+    }, 500); // wait for modal animation
+  });
+
+  it("shows the default reject button when the hideRejectButton property is not set", done => {
+    modal.opened = true;
+    setTimeout(() => {
+      const rejectTriggerButton = Polymer.dom(modal.root).querySelector(
+        "#reject-trigger-button"
+      );
+      expect(rejectTriggerButton).to.not.be.null;
       done();
     }, 500); // wait for modal animation
   });
