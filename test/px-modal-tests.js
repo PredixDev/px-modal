@@ -112,7 +112,7 @@ describe("px-modal", () => {
       const acceptTriggerButton = Polymer.dom(modal.root).querySelector(
         "#accept-trigger-button"
       );
-      expect(acceptTriggerButton).to.be.null;
+      expect(acceptTriggerButton).to.not.be.visible;
       done();
     }, 500); // wait for modal animation
   });
@@ -123,7 +123,7 @@ describe("px-modal", () => {
       const acceptTriggerButton = Polymer.dom(modal.root).querySelector(
         "#accept-trigger-button"
       );
-      expect(acceptTriggerButton).to.not.be.null;
+      expect(acceptTriggerButton).to.be.visible;
       done();
     }, 500); // wait for modal animation
   });
@@ -135,7 +135,7 @@ describe("px-modal", () => {
       const rejectTriggerButton = Polymer.dom(modal.root).querySelector(
         "#reject-trigger-button"
       );
-      expect(rejectTriggerButton).to.be.null;
+      expect(rejectTriggerButton).to.not.be.visible;
       done();
     }, 500); // wait for modal animation
   });
@@ -146,7 +146,7 @@ describe("px-modal", () => {
       const rejectTriggerButton = Polymer.dom(modal.root).querySelector(
         "#reject-trigger-button"
       );
-      expect(rejectTriggerButton).to.not.be.null;
+      expect(rejectTriggerButton).to.be.visible;
       done();
     }, 500); // wait for modal animation
   });
