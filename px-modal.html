@@ -167,17 +167,21 @@ Custom property | Description
           <!-- Custom actions -->
           <slot name="actions"></slot>
           <!-- Actions: Reject -->
-          <div class="modal__reject-trigger" on-tap="_handleRejectTriggerTapped" id="reject-trigger-container">
-            <slot name="reject-trigger">
-              <button type="button" class="btn" id="reject-trigger-button">[[rejectText]]</button>
-            </slot>
-          </div>
+          <template is="dom-if" if="{{!hideRejectButton}}">
+            <div class="modal__reject-trigger" on-tap="_handleRejectTriggerTapped" id="reject-trigger-container">
+              <slot name="reject-trigger">
+                <button type="button" class="btn" id="reject-trigger-button">[[rejectText]]</button>
+              </slot>
+            </div>
+          </template>
           <!-- Actions: Accept -->
-          <div class="modal__accept-trigger" on-tap="_handleAcceptTriggerTapped" id="accept-trigger-container">
-            <slot name="accept-trigger">
-              <button type="button" class="btn btn--call-to-action" id="accept-trigger-button">[[acceptText]]</button>
-            </slot>
-          </div>
+          <template is="dom-if" if="{{!hideAcceptButton}}">
+            <div class="modal__accept-trigger" on-tap="_handleAcceptTriggerTapped" id="accept-trigger-container">
+              <slot name="accept-trigger">
+                <button type="button" class="btn btn--call-to-action" id="accept-trigger-button">[[acceptText]]</button>
+              </slot>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -211,10 +215,28 @@ Custom property | Description
         acceptText: String,
 
         /**
+        * If the hide-accept-button property is set the default accept button will not be 
+        * be added to the dialog.
+        */
+        hideAcceptButton: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
          * String used for the reject button. Override with a custom button using
          * the `reject-trigger` slot.
          */
         rejectText: String,
+
+        /**
+        * If the hide-reject-button property is set the default reject button will not be 
+        * be added to the dialog.        
+        * */
+        hideRejectButton: {
+          type: Boolean,
+          value: false
+        },
 
         /**
          * Set this flag to show the modal, remove it to hide the modal.

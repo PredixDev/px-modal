@@ -154,9 +154,9 @@ $inuit-enable-btn--disabled        : true;
 
 .modal__reject-trigger {
   flex-shrink: 0;
-  margin-right: $inuit-base-spacing-unit;
 }
 
 .modal__accept-trigger {
   flex-shrink: 0;
+  margin-left: $inuit-base-spacing-unit;
 }

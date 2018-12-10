@@ -1,3 +1,8 @@
+v3.3.5
+==================
+* Added hideAcceptButton and hideRejectButton properties to allow the user to
+  hide the default action buttons if required
+
 v3.3.4
 ==================
 * Improve looking up for focusable elements inside the modal

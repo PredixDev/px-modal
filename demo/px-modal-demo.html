@@ -60,6 +60,8 @@ limitations under the License.
               body-text="{{props.bodyText.value}}"
               accept-text="{{props.acceptText.value}}"
               reject-text="{{props.rejectText.value}}"
+              hide-accept-button="{{props.hideAcceptButton.value}}"
+              hide-reject-button="{{props.hideRejectButton.value}}"
               open-trigger="[[openTrigger]]"
               fill-container="{{props.fillContainer.value}}">
           </px-modal>
@@ -127,7 +129,7 @@ limitations under the License.
 
       acceptText: {
         type: String,
-        defaultValue: 'Permanently Delete Record',
+        defaultValue: 'Delete Record',
         inputType: 'text'
       },
 
@@ -138,6 +140,18 @@ limitations under the License.
       },
 
       fillContainer: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+
+      hideAcceptButton: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      
+      hideRejectButton: {
         type: Boolean,
         defaultValue: false,
         inputType: 'toggle'
