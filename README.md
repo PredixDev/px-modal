@@ -1,4 +1,4 @@
-# px-modal [![Build Status](https://travis-ci.org/PredixDev/px-modal.svg?branch=master)](https://travis-ci.org/PredixDev/px-modal)
+# px-modal [![Build Status](https://travis-ci.org/predixdesignsystem/px-modal.svg?branch=master)](https://travis-ci.org/predixdesignsystem/px-modal)
 
 ## Overview
 
@@ -19,7 +19,7 @@ Node, npm, and bower are necessary to install the component and dependencies. we
 First, install the component via bower on the command line:
 
 ```
-bower install https://github.com/PredixDev/px-modal.git --save
+bower install https://github.com/predixdesignsystem/px-modal.git --save
 ```
 
 Second, import the component to your application with the following tag in your head:
@@ -44,7 +44,7 @@ Finally, use the component in your application:
 
 ## Documentation
 
-Read the full API and view the demo [here](https://predixdev.github.io/px-modal).
+Read the full API and view the demo [here](https://www.predix-ui.com/#/elements/px-modal).
 
 ### Local Development
 From the component's directory...
@@ -74,4 +74,4 @@ Starts a local server. Navigate to the root of that server (e.g. http://localhos
 
 ## Known Issues
 
-Please use [Github Issues](https://github.com/PredixDev/px-modal/issues) to submit any bugs you might find.
+Please use [Github Issues](https://github.com/predixdesignsystem/px-modal/issues) to submit any bugs you might find.
