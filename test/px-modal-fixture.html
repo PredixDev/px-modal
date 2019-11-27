@@ -23,27 +23,55 @@ limitations under the License.
 
     <!-- BOILERPLATE -->
     <!-- load webcomponents.js polyfill for browsers that don't support native web components -->
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <!-- load web-component-tester test runner script -->
-    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../wct-browser-legacy/browser.js"></script>
     <!-- load and apply default theme, required to run tests -->
-    <link rel="import" href="../../px-theme/px-theme-styles.html"/>
-    <custom-style>
+    <script type="module" src="../../px-theme/px-theme-styles.js"></script>
+    <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
       <style include="px-theme-styles" is="custom-style"></style>
-    </custom-style>
+    </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
 
     <!-- UNIQUE TO THIS COMPONENT -->
     <!-- import web components to test -->
-    <link rel="import" href="../px-modal.html"/>
-    <link rel="import" href="../px-modal-trigger.html"/>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+$_documentContainer.innerHTML = `<link rel="import" href="../px-modal.html">`;
+document.body.appendChild($_documentContainer.content);
+</script>/script>
+    <script type="module" src="../px-modal-trigger.js"></script>ocument.createElement('template');
+$_documentContainer.innerHTML = `<link rel="import" href="../px-modal-trigger.html">`;
+document.body.appendChild($_documentContainer.content);
+</script>
     <!-- load test helpers -->
-    <link rel="import" href="../../iron-test-helpers/mock-interactions.html"/>
-    <script src="chai-expect-eventually.js"></script>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+$_documentContainer.innerHTML = `<link rel="import" href="../../iron-test-helpers/mock-interactions.html">`;
+document.body.appendChild($_documentContainer.content);
+</script>ons.js"></script>
+    <script src="./chai-expect-eventually.js"></script>
     <!-- load test script -->
-    <script src="px-modal-tests.js"></script>
+    <script src="./px-modal-tests.js"></script>
   </head>
   <body>
-    <dom-module id="my-element">
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-module id="my-element">
       <template>
         <button>Button inside Shadow DOM</button>
       </template>
@@ -53,27 +81,44 @@ limitations under the License.
             is: 'my-element'
           })
         });
-      </script>
+      &lt;/script>
+    </dom-module>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>mport { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+Polymer({
+  is: 'my-element'
+})
+</script>
     </dom-module>
 
-    <h3>Web Component Test : Fixture for px-modal</h3>
-    <test-fixture id="ModalFixture">
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+$_documentContainer.innerHTML = `<h3>Web Component Test : Fixture for px-modal</h3>`;
+document.body.appendChild($_documentContainer.content);
+</script>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="ModalFixture">
       <template>
         <div>
-          <px-modal
-              header-text="Confirm delete"
-              body-text="Do you want to delete this record? The record will be deleted permanently."
-              accept-text="Permanently Delete Record"
-              reject-text="Cancel">
+          <px-modal header-text="Confirm delete" body-text="Do you want to delete this record? The record will be deleted permanently." accept-text="Permanently Delete Record" reject-text="Cancel">
           </px-modal>
           <px-modal-trigger>
             <button id="openButton">Open Modal</button>
           </px-modal-trigger>
         </div>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="ModalFixtureWithSlots">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="ModalFixtureWithSlots">
       <template>
         <div>
           <px-modal>
@@ -90,6 +135,9 @@ limitations under the License.
           </px-modal-trigger>
         </div>
       </template>
-    </test-fixture>
+    </test-fixture>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
   </body>
 </html>

@@ -23,43 +23,56 @@ limitations under the License.
   <title>px-modal demo</title>
 
   <!-- Load webcomponentsjs + Polymer -->
-  <script>
-  (function() {
-    'use strict';
+  <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/polymer/lib/elements/dom-bind.js';
+import '../px-modal.js';
+import '../px-modal-trigger.js';
+import 'px-theme/px-theme-styles.js';
 
-    var onload = function() {
-      // For native Imports, manually fire WebComponentsReady so user code
-      // can use the same code path for native and polyfill'd imports.
-      if (!window.HTMLImports) {
-        document.dispatchEvent(
-          new CustomEvent('WebComponentsReady', {bubbles: true})
-        );
-      }
-    };
-
-    var webComponentsSupported = (
-      'registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template')
+var onload = function() {
+  // For native Imports, manually fire WebComponentsReady so user code
+  // can use the same code path for native and polyfill'd imports.
+  if (!window.HTMLImports) {
+    document.dispatchEvent(
+      new CustomEvent('WebComponentsReady', {bubbles: true})
     );
+  }
+};
 
-    if (!webComponentsSupported) {
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = '../../webcomponentsjs/webcomponents-lite.js';
-      script.onload = onload;
-      document.head.appendChild(script);
-    } else {
-      onload();
-    }
-  })();
-  </script>
-  <link rel="import" href="../../polymer/polymer.html"/>
-  <link rel="import" href="../../polymer/lib/elements/dom-bind.html"/>
+var webComponentsSupported = (
+  'registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template')
+);
+
+if (!webComponentsSupported) {
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = '../../webcomponentsjs/webcomponents-lite.js';
+  script.onload = onload;
+  document.head.appendChild(script);
+} else {
+  onload();
+}
+</script>
+  <script type="module" src="../../@polymer/polymer/polymer-legacy.js"></script>
+  <script type="module" src="../../@polymer/polymer/lib/elements/dom-bind.js"></script>
 
   <!-- Load components -->
-  <link rel="import" href="../px-modal.html"/>
-  <link rel="import" href="../px-modal-trigger.html"/>
+  <script type="module" src="../px-modal.js"></script>
+  <script type="module" src="../px-modal-trigger.js"></script>
 
-  <style>
+  <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<style>
     html {
       font-size: 15px;
     }
@@ -71,13 +84,22 @@ limitations under the License.
       margin-top: 1rem;
       width: 100%;
     }
-  </style>
+  </style>`;
+
+document.head.appendChild($_documentContainer.content);
+</script>
 
   <!-- Load theme -->
-  <link rel="import" href="../../px-theme/px-theme-styles.html"/>
-  <custom-style>
+  <script type="module" src="../../px-theme/px-theme-styles.js"></script>
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
     <style include="px-theme-styles" is="custom-style"></style>
-  </custom-style>
+  </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
 </head>
 <body>
 
@@ -97,65 +119,72 @@ limitations under the License.
     from a button in one of the trigger slots using your framework.
   -->
 
-  <dom-bind>
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-bind>
     <template is="dom-bind">
-      <px-modal
-          header-text="Update username"
-          accept-text="Submit"
-          reject-text="Cancel"
-          open-trigger="{{openTrigger}}"
-          on-opened-changed="onModalOpenedChanged">
+      <px-modal header-text="Update username" accept-text="Submit" reject-text="Cancel" open-trigger="{{openTrigger}}" on-opened-changed="onModalOpenedChanged">
         <div slot="body" class="modal-body">
           <span>Fill in your new username below and tap the save button. Your username must be at least 5 characters long.</span>
           <input class="username-input" type="text" placeholder="Enter username" value="{{newUsername::change}}" on-input="onUsernameChanged">
         </div>
         <button slot="reject-trigger">Cancel</button>
-        <button slot="accept-trigger" disabled$="[[newUsernameInvalid]]">Save</button>
+        <button slot="accept-trigger" disabled\$="[[newUsernameInvalid]]">Save</button>
       </px-modal>
       <px-modal-trigger type="open" trigger="{{openTrigger}}">
         <button>Update username</button>
         <p>Current username: <strong>[[username]]</strong></p>
       </px-modal-trigger>
     </template>
-  </dom-bind>
-  <script>
-    const bind = Polymer.Element ? document.querySelector('dom-bind') : document.querySelector('template[is="dom-bind"]');
+  </dom-bind>`;
 
-    /* Set the default username */
-    bind.username = 'default_user';
+document.body.appendChild($_documentContainer.content);
+</script>
+  <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/polymer/lib/elements/dom-bind.js';
+import '../px-modal.js';
+import '../px-modal-trigger.js';
+import 'px-theme/px-theme-styles.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+const bind = PolymerElement ? document.querySelector('dom-bind') : document.querySelector('template[is="dom-bind"]');
 
-    /* Called when the modal is opened or closed */
-    bind.onModalOpenedChanged = function(e) {
-      const opened = e.detail.value;
-      // Modal is opening
-      if (opened) {
-        // Clear out the username so the user can enter a new one
-        bind.newUsername = '';
-        // Set `newUsernameInvalid` to `true` so user has to enter a new one
-        // before hitting the "Save" button
-        bind.newUsernameInvalid = true;
-      }
-      // Modal is closing and a valid new username was entered
-      if (!opened && !bind.newUsernameInvalid) {
-        // Update the username
-        bind.username = bind.newUsername;
-      }
-    }
+/* Set the default username */
+bind.username = 'default_user';
 
-    /* Called when the user types into the input inside the modal */
-    bind.onUsernameChanged = function(e) {
-      const username = e.target.value;
-      if (typeof username === 'string' && username.length >= 5) {
-        // User has entered a new username that is 5 characters or longer,
-        // enable the save button
-        bind.newUsernameInvalid = false;
-      }
-      else {
-        // User has not typed a username or the username is not long enough,
-        // disable the save button
-        bind.newUsernameInvalid = true;
-      }
-    }
-  </script>
+/* Called when the modal is opened or closed */
+bind.onModalOpenedChanged = function(e) {
+  const opened = e.detail.value;
+  // Modal is opening
+  if (opened) {
+    // Clear out the username so the user can enter a new one
+    bind.newUsername = '';
+    // Set `newUsernameInvalid` to `true` so user has to enter a new one
+    // before hitting the "Save" button
+    bind.newUsernameInvalid = true;
+  }
+  // Modal is closing and a valid new username was entered
+  if (!opened && !bind.newUsernameInvalid) {
+    // Update the username
+    bind.username = bind.newUsername;
+  }
+}
+
+/* Called when the user types into the input inside the modal */
+bind.onUsernameChanged = function(e) {
+  const username = e.target.value;
+  if (typeof username === 'string' && username.length >= 5) {
+    // User has entered a new username that is 5 characters or longer,
+    // enable the save button
+    bind.newUsernameInvalid = false;
+  }
+  else {
+    // User has not typed a username or the username is not long enough,
+    // disable the save button
+    bind.newUsernameInvalid = true;
+  }
+}
+</script>
 </body>
 </html>

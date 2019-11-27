@@ -23,64 +23,86 @@ limitations under the License.
   <title>px-modal demo</title>
 
   <!-- Load webcomponentsjs + Polymer -->
-  <script>
-  (function() {
-    'use strict';
+  <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/polymer/lib/elements/dom-bind.js';
+import '../px-modal.js';
+import '../px-modal-trigger.js';
+import 'px-theme/px-theme-styles.js';
 
-    var onload = function() {
-      // For native Imports, manually fire WebComponentsReady so user code
-      // can use the same code path for native and polyfill'd imports.
-      if (!window.HTMLImports) {
-        document.dispatchEvent(
-          new CustomEvent('WebComponentsReady', {bubbles: true})
-        );
-      }
-    };
-
-    var webComponentsSupported = (
-      'registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template')
+var onload = function() {
+  // For native Imports, manually fire WebComponentsReady so user code
+  // can use the same code path for native and polyfill'd imports.
+  if (!window.HTMLImports) {
+    document.dispatchEvent(
+      new CustomEvent('WebComponentsReady', {bubbles: true})
     );
+  }
+};
 
-    if (!webComponentsSupported) {
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = '../../webcomponentsjs/webcomponents-lite.js';
-      script.onload = onload;
-      document.head.appendChild(script);
-    } else {
-      onload();
-    }
-  })();
-  </script>
-  <link rel="import" href="../../polymer/polymer.html"/>
-  <link rel="import" href="../../polymer/lib/elements/dom-bind.html"/>
+var webComponentsSupported = (
+  'registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template')
+);
+
+if (!webComponentsSupported) {
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = '../../webcomponentsjs/webcomponents-lite.js';
+  script.onload = onload;
+  document.head.appendChild(script);
+} else {
+  onload();
+}
+</script>
+  <script type="module" src="../../@polymer/polymer/polymer-legacy.js"></script>
+  <script type="module" src="../../@polymer/polymer/lib/elements/dom-bind.js"></script>
 
   <!-- Load components -->
-  <link rel="import" href="../px-modal.html"/>
-  <link rel="import" href="../px-modal-trigger.html"/>
+  <script type="module" src="../px-modal.js"></script>
+  <script type="module" src="../px-modal-trigger.js"></script>
 
-  <style>
+  <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<style>
     html {
       font-size: 15px;
     }
     .action-buttons {
       width: 100%;
     }
-  </style>
+  </style>`;
+
+document.head.appendChild($_documentContainer.content);
+</script>
 
   <!-- Load theme -->
-  <link rel="import" href="../../px-theme/px-theme-styles.html"/>
-  <custom-style>
+  <script type="module" src="../../px-theme/px-theme-styles.js"></script>
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
     <style include="px-theme-styles" is="custom-style"></style>
-  </custom-style>
+  </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
 </head>
 <body>
-  <dom-bind>
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-bind>
     <template is="dom-bind">
-      <px-modal id="modal"
-          header-text="Magna Adipiscing"
-          body-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          open-trigger="{{openTrigger}}">
+      <px-modal id="modal" header-text="Magna Adipiscing" body-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." open-trigger="{{openTrigger}}">
         <div slot="actions" class="action-buttons">
           <button on-click="resetTapped">Reset</button>
         </div>
@@ -91,13 +113,22 @@ limitations under the License.
         <button>Open modal</button>
       </px-modal-trigger>
     </template>
-  </dom-bind>
-  <script>
-    const bind = Polymer.Element ? document.querySelector('dom-bind') : document.querySelector('template[is="dom-bind"]');
-    bind.resetTapped = e => {
-      const modal = document.getElementById('modal');
-      modal.opened = false;
-    }
-  </script>
+  </dom-bind>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+  <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/polymer/lib/elements/dom-bind.js';
+import '../px-modal.js';
+import '../px-modal-trigger.js';
+import 'px-theme/px-theme-styles.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+const bind = PolymerElement ? document.querySelector('dom-bind') : document.querySelector('template[is="dom-bind"]');
+bind.resetTapped = e => {
+  const modal = document.getElementById('modal');
+  modal.opened = false;
+}
+</script>
 </body>
 </html>
